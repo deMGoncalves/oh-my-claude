@@ -1,0 +1,66 @@
+name: 💡 Feature Request
+description: Propor nova rule, skill, command ou melhoria no workflow
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tem uma ideia para melhorar o **oh my claude**? Ótimo!
+        Antes de implementar, compartilhe sua proposta aqui para alinharmos.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Tipo de contribuição
+      options:
+        - 🆕 Nova rule arquitetural
+        - 🧠 Nova skill
+        - ⚡ Novo command
+        - 🤖 Melhoria de agent existente
+        - 🔗 Novo MCP
+        - 📝 Melhoria de documentação
+        - 🎯 Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Qual problema isso resolve?
+      description: Descreva o contexto e por que isso seria útil
+      placeholder: "Ex: Quando o @reviewer anota codetags, seria útil poder..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solução proposta
+      description: Como você imagina que isso funcionaria?
+      placeholder: |
+        Ex: Uma nova skill chamada `accessibility` que o @reviewer usaria para
+        verificar atributos ARIA e contraste de cores, com referências à skill
+        `software-quality` (fator Usability)...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas consideradas
+      description: Existe outra forma de resolver o mesmo problema?
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: Verifiquei que não existe uma rule/skill/command similar
+          required: true
+        - label: Li o CONTRIBUTING.md
+          required: true
+        - label: Estou disposto(a) a implementar se aprovado
+          required: false

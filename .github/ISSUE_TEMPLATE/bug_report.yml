@@ -1,0 +1,84 @@
+name: 🐛 Bug Report
+description: Reportar um comportamento inesperado em agent, hook, command ou skill
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por reportar um bug! Preencha os campos abaixo para ajudar a reproduzir e corrigir o problema.
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Componente afetado
+      options:
+        - Agent (@leader)
+        - Agent (@architect)
+        - Agent (@developer)
+        - Agent (@tester)
+        - Agent (@reviewer)
+        - Hook (lint.sh)
+        - Hook (loop.sh)
+        - Hook (prompt.sh)
+        - Command (/start)
+        - Command (/status)
+        - Command (/audit)
+        - Command (/docs)
+        - Command (/ship)
+        - Command (/sync)
+        - Skill
+        - Rule
+        - MCP
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição do problema
+      description: O que aconteceu? O que você esperava que acontecesse?
+      placeholder: "Ex: O @reviewer está retornando um veredito sem anotações no código..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Como reproduzir
+      description: Passos para reproduzir o comportamento
+      placeholder: |
+        1. Abrir Claude Code com `claude .`
+        2. Executar `/audit src/user/auth/login`
+        3. O agent retorna...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportamento esperado
+      description: O que deveria ter acontecido?
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Ambiente
+      description: Versão do Claude Code, SO, etc.
+      placeholder: |
+        - Claude Code: v2.x.x
+        - OS: macOS 15.x
+        - Bun: 1.x.x
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexto adicional
+      description: Logs, screenshots ou qualquer informação relevante
+    validations:
+      required: false

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 General Discussion
+    url: https://github.com/melisource/fury_oh-my-claude/discussions
+    about: For questions, ideas and conversations about the workflow
+  - name: 📖 Documentation
+    url: https://github.com/melisource/fury_oh-my-claude/wiki
+    about: Check the full documentation before opening an issue
