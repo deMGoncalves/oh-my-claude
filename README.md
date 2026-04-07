@@ -4,6 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-CLI-blueviolet)](https://code.claude.com)
+[![Plugin](https://img.shields.io/badge/Plugin-oh--my--claude-black)](#plugin-installation)
 [![Agents](https://img.shields.io/badge/Agents-5-blue)](#agents)
 [![Skills](https://img.shields.io/badge/Skills-35-green)](#skills-35-skills)
 [![Rules](https://img.shields.io/badge/Rules-70-orange)](#rules-70-rules)
@@ -15,37 +16,67 @@ Personal workflow for AI-assisted development. It's not a framework, not a tool 
 
 ## Plugin Installation
 
-Install `oh-my-claude` as a Claude Code plugin to use it in any project.
+The recommended way to use `oh-my-claude` in any project is as a Claude Code plugin. Choose the option that fits your use case:
 
-### Option 1 — Local (development / testing)
+### 1. Session (test before committing)
+
+Load the plugin for a single Claude Code session without installing anything permanently:
 
 ```bash
 claude --plugin-dir /path/to/fury_oh-my-claude
 ```
 
-### Option 2 — Permanent (user-level install)
+### 2. Permanent — user level (all your projects)
 
-```bash
+Install the plugin permanently for your user. All your projects will have access to the agents, skills, and commands.
+
+Inside Claude Code:
+
+```
 /plugin marketplace add melisource/fury_oh-my-claude
 /plugin install oh-my-claude@oh-my-claude-marketplace
 ```
 
-Once installed, commands are available with the `oh-my-claude:` namespace:
+### 3. Permanent — project level (shared with the team)
 
-| Standalone (cloned repo) | Plugin (installed) |
-|---|---|
-| `/start` | `/oh-my-claude:start` |
-| `/ship` | `/oh-my-claude:ship` |
-| `/audit` | `/oh-my-claude:audit` |
+To ensure everyone on the team uses the plugin automatically, add to your project's `.claude/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "oh-my-claude-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "melisource/fury_oh-my-claude"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "oh-my-claude@oh-my-claude-marketplace": true
+  }
+}
+```
+
+When a teammate opens the project for the first time, Claude Code automatically prompts them to install the plugin.
+
+### Command namespace
+
+When installed as a plugin, commands use the `oh-my-claude:` prefix to avoid conflicts with other plugins:
+
+| Standalone (cloned repo) | Plugin |
+| ------------------------ | ------ |
+| `/start`  | `/oh-my-claude:start`  |
+| `/ship`   | `/oh-my-claude:ship`   |
+| `/audit`  | `/oh-my-claude:audit`  |
 | `/status` | `/oh-my-claude:status` |
-| `/docs` | `/oh-my-claude:docs` |
-| `/sync` | `/oh-my-claude:sync` |
+| `/docs`   | `/oh-my-claude:docs`   |
+| `/sync`   | `/oh-my-claude:sync`   |
 
-Skills and agents are loaded automatically with the same namespace prefix.
+Agents (`@leader`, `@architect`, etc.) and skills are loaded automatically — no prefix needed.
 
 ---
 
-## Setup
+## Setup (standalone / contributors)
 
 ### Prerequisites
 
