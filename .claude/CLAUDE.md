@@ -88,6 +88,11 @@ Cada Feature/Task em `changes/00X_name/`:
 - `design-spec.md` — (UI) spec de componente
 - `findings.md` — (Research) relatório de investigação
 
+Memória de longo prazo em `memory/`:
+- `memory/episodes/` — episódios de features concluídas (auto-gerado)
+- `memory/patterns/candidates.md` — candidatos para skill distillation (auto-gerado)
+- `memory/semantic/` — conhecimento semântico estável (manual)
+
 ---
 
 ## Limites Operacionais
@@ -104,9 +109,9 @@ Cada Feature/Task em `changes/00X_name/`:
 
 | Evento | Hook | Comportamento |
 |--------|------|---------------|
-| `UserPromptSubmit` | `prompt.sh` | Injeta hint de modo + estado de sessão ativa |
+| `UserPromptSubmit` | `prompt.sh` | Injeta hint de modo + estado de sessão ativa + injeta top-2 episódios similares de `memory/episodes/` |
 | `PostToolUse` Write/Edit | `lint.sh` | Auto-formata com linter do projeto |
 | `PostToolUse` Write/Edit | `security.sh` | Bloqueia se credencial hardcoded detectada |
 | `PostToolUse` Write/Edit | `guard.sh` | Bloqueia se violação 🔴 Crítica detectada |
 | `Stop` | `loop.sh` | Bloqueia se `- [ ]` pendente + mostra contadores |
-| `Stop` | `telemetry.sh` | Registra trace JSON em `.claude/telemetry/sessions.jsonl` |
+| `Stop` | `telemetry.sh` | (1) Registra trace JSON em `.claude/telemetry/sessions.jsonl`; (2) se feature concluída, gera episódio em `memory/episodes/YYYY-MM-DD_feature.md`; (3) se `attempts_coder=1`, appenda candidato em `memory/patterns/candidates.md` |

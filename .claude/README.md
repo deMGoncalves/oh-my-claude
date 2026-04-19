@@ -27,6 +27,12 @@ changes/               ← contexto persistente de features (criado por feature/
     ├── findings.md    ← (somente Research) relatório de investigação
     └── tasks.md       ← T-001…T-NNN + contadores de tentativas
 
+memory/                ← memória de longo prazo (sobrevive entre features)
+├── episodes/          ← episódios de features concluídas (auto-gerado por telemetry.sh)
+├── patterns/          ← candidatos para skill distillation (auto-gerado por telemetry.sh)
+│   └── candidates.md
+└── semantic/          ← conhecimento semântico estável (curado manualmente)
+
 docs/                  ← documentação arquitetural sincronizada
 ├── arc42/             ← 12 seções arquiteturais
 ├── c4/                ← 4 níveis de abstração
@@ -235,12 +241,14 @@ Claude termina de responder
     ↓
 [3] loop.sh → telemetry.sh ← Stop
     loop.sh       → verifica tasks.md — bloqueia se existir - [ ] pendente
-    telemetry.sh  → registra trace JSON em .claude/telemetry/sessions.jsonl
+    telemetry.sh  → (1) registra trace JSON em .claude/telemetry/sessions.jsonl
+                    (2) se feature concluída, escreve memory/episodes/YYYY-MM-DD_nome.md
+                    (3) se attempts_coder=1, appenda candidato em memory/patterns/candidates.md
 ```
 
 ### Detalhes de cada hook
 
-**`prompt.sh` — Roteamento de modo**
+**`prompt.sh` — Roteamento de modo + recall episódico**
 
 Detecta verbos de ação no prompt do usuário e injeta um hint de modo no system prompt para que o Tech Lead classifique antes de agir:
 
@@ -253,6 +261,8 @@ Detecta verbos de ação no prompt do usuário e injeta um hint de modo no syste
 "o que é princípio SOLID?"
 "como funciona @reviewer?"
 ```
+
+Além do hint, o `prompt.sh` extrai keywords do prompt (tokens de 4+ chars, removendo stopwords PT/EN) e faz grep em `memory/episodes/`. Os 2 episódios mais similares são injetados no system prompt (50 linhas cada) como `[EPISÓDIOS SIMILARES DO PASSADO]` — fornecendo recall automático de decisões e findings de features anteriores.
 
 **`lint.sh` — Formatação automática**
 
@@ -270,12 +280,12 @@ rm .claude/.loop-skip  # remover após resolver
 
 | Evento                                      | Hook           | Objetivo                                                                                                             |
 | ------------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `UserPromptSubmit`                          | `prompt.sh`    | Injeta hint de modo (Quick/Task/Feature/Research/UI) + registra intent em `.claude/telemetry/intent.jsonl`           |
+| `UserPromptSubmit`                          | `prompt.sh`    | Injeta hint de modo (Quick/Task/Feature/Research/UI) + registra intent em `.claude/telemetry/intent.jsonl` + injeta top-2 episódios similares de `memory/episodes/` |
 | `PostToolUse` — `Write\|Edit\|NotebookEdit` | `lint.sh`      | Auto-formata arquivos `.ts/.tsx/.js/.jsx/.json` com `bunx biome check --write`                                       |
 | `PostToolUse` — `Write\|Edit\|NotebookEdit` | `security.sh`  | Bloqueia escrita se credencial hardcoded for detectada                                                               |
 | `PostToolUse` — `Write\|Edit\|NotebookEdit` | `guard.sh`     | Bloqueia escrita se violação de regra 🔴 Crítica for detectada                                                       |
 | `Stop`                                      | `loop.sh`      | Bloqueia encerramento se existir `- [ ]` pendente em `changes/*/tasks.md` + exibe contadores                         |
-| `Stop`                                      | `telemetry.sh` | Registra trace JSON (session_id, mode, tasks, attempts, violations) em `.claude/telemetry/sessions.jsonl`            |
+| `Stop`                                      | `telemetry.sh` | (1) Registra trace JSON (session_id, mode, tasks, attempts, violations) em `.claude/telemetry/sessions.jsonl`; (2) se feature concluída, materializa episódio em `memory/episodes/YYYY-MM-DD_feature.md`; (3) se `attempts_coder=1`, appenda candidato em `memory/patterns/candidates.md` |
 
 ---
 
@@ -407,14 +417,61 @@ Referência completa de tags em `skills/codetags/`.
 
 ## Observabilidade
 
-O harness emite dois fluxos de telemetria em formato JSON Lines — um registro por linha, pronto para ingestão em pipelines de análise.
+O harness emite quatro fluxos de observabilidade — dois em JSON Lines (telemetria de sessão) e dois em Markdown (memória de longo prazo).
 
-| Arquivo                              | Origem         | Evento              | Conteúdo do registro                                                                    |
-| ------------------------------------ | -------------- | ------------------- | --------------------------------------------------------------------------------------- |
-| `.claude/telemetry/intent.jsonl`     | `prompt.sh`    | `UserPromptSubmit`  | Intent detectado por prompt (modo sugerido, verbo de ação, timestamp, session_id)       |
-| `.claude/telemetry/sessions.jsonl`   | `telemetry.sh` | `Stop`              | Trace por sessão: `timestamp`, `session_id`, `cwd`, `feature`, `mode`, `tasks` (pending/done), `attempts` (coder/tester), `violations` |
+| Arquivo                                    | Origem         | Evento             | Conteúdo do registro                                                                    |
+| ------------------------------------------ | -------------- | ------------------ | --------------------------------------------------------------------------------------- |
+| `.claude/telemetry/intent.jsonl`           | `prompt.sh`    | `UserPromptSubmit` | Intent detectado por prompt (modo sugerido, verbo de ação, timestamp, session_id)       |
+| `.claude/telemetry/sessions.jsonl`         | `telemetry.sh` | `Stop`             | Trace por sessão: `timestamp`, `session_id`, `cwd`, `feature`, `mode`, `tasks` (pending/done), `attempts` (coder/tester), `violations` |
+| `memory/episodes/YYYY-MM-DD_nome.md`       | `telemetry.sh` | `Stop` (feature concluída) | Episódio da feature: frontmatter (date, mode, attempts) + seções Specs, Decisões de Design, Findings |
+| `memory/patterns/candidates.md`            | `telemetry.sh` | `Stop` (`attempts_coder=1`) | Appenda entrada com checkbox `[ ] Revisado` para triagem de skill distillation |
 
-Os dois arquivos crescem apenas por append, nunca são reescritos pelos hooks, e podem ser consumidos por qualquer ferramenta que leia JSONL. A pasta `.claude/telemetry/` deve ficar fora do versionamento (já coberta pelo `.gitignore` local).
+Os arquivos JSONL crescem apenas por append, nunca são reescritos pelos hooks, e podem ser consumidos por qualquer ferramenta que leia JSONL. A pasta `.claude/telemetry/` deve ficar fora do versionamento (já coberta pelo `.gitignore` local). Os arquivos em `memory/` são versionados — representam a memória do harness entre sessões.
+
+---
+
+## Memory
+
+O harness mantém memória de longo prazo em `memory/`, separada do contexto ativo (`changes/`). Três tipos de memória, cada um com ciclo próprio de escrita/leitura:
+
+```
+memory/
+├── episodes/      ← o que aconteceu (episódico)
+├── patterns/      ← o que se repetiu (candidatos a distillation)
+└── semantic/      ← o que é verdade estável (curado)
+```
+
+### Ciclo completo
+
+```
+Write:   telemetry.sh → memory/episodes/      (trigger: feature concluída)
+         telemetry.sh → memory/patterns/      (trigger: attempts_coder=1)
+
+Read:    prompt.sh    ← memory/episodes/      (injeta top-2 similares em nova task)
+
+Distill: engenheiro revisa memory/patterns/candidates.md →
+         atualiza skill existente OU cria novo skill →
+         promove conhecimento estável para memory/semantic/
+```
+
+### Episódios (`memory/episodes/`)
+
+Ao concluir uma feature (`PENDING_COUNT=0` e `DONE_COUNT>0`), o `telemetry.sh` materializa um arquivo `YYYY-MM-DD_feature.md` com:
+
+- Frontmatter: `date`, `mode`, `attempts`
+- Seção **Specs** — extrato de `changes/00X/specs.md`
+- Seção **Decisões de Design** — extrato de `changes/00X/design.md` (se Feature)
+- Seção **Findings** — extrato de `changes/00X/findings.md` (se Research)
+
+No próximo `UserPromptSubmit`, `prompt.sh` extrai keywords (4+ chars, sem stopwords PT/EN) do prompt, faz grep em `memory/episodes/` e injeta até 2 episódios (50 linhas cada) no system prompt — o Tech Lead recebe contexto automático de features anteriores similares.
+
+### Patterns (`memory/patterns/candidates.md`)
+
+Quando uma feature conclui com `attempts_coder=1` (coder acertou de primeira), é um forte sinal de que o padrão está maduro o suficiente para ser promovido. O `telemetry.sh` appenda uma entrada com `[ ] Revisado` — o engenheiro triagea periodicamente e decide: atualizar skill existente, criar novo skill ou descartar.
+
+### Semantic (`memory/semantic/`)
+
+Conhecimento semântico estável — atualizado manualmente pelo engenheiro a partir da triagem de `patterns/` e da leitura cruzada de múltiplos episódios. Não é escrito por hook; é a camada curada que representa o que é verdade consolidada no harness.
 
 ---
 

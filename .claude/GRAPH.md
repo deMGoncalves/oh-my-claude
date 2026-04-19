@@ -171,12 +171,22 @@ graph LR
     h_telemetry["telemetry.sh"]
   end
 
-  h_prompt --> t_intent[".claude/telemetry/intent.jsonl"]
-  h_telemetry --> t_sessions[".claude/telemetry/sessions.jsonl"]
+  t_intent[".claude/telemetry/intent.jsonl"]
+  t_sessions[".claude/telemetry/sessions.jsonl"]
+  m_episodes["memory/episodes/"]
+  m_patterns["memory/patterns/candidates.md"]
+
+  h_prompt -- write --> t_intent
+  h_prompt -. read .-> m_episodes
+  h_telemetry -- write --> t_sessions
+  h_telemetry -- write --> m_episodes
+  h_telemetry -- write --> m_patterns
   h_loop --> t_sessions
 ```
 
-`loop.sh` e `telemetry.sh` são acionados em sequência no evento `Stop`: `loop.sh` decide se a resposta pode encerrar (bloqueia se existir `- [ ]` pendente em `changes/*/tasks.md`), `telemetry.sh` registra trace JSON da sessão com `session_id`, `mode`, `feature`, `tasks` (pending/done), `attempts` (coder/tester) e `violations`.
+`loop.sh` e `telemetry.sh` são acionados em sequência no evento `Stop`: `loop.sh` decide se a resposta pode encerrar (bloqueia se existir `- [ ]` pendente em `changes/*/tasks.md`), `telemetry.sh` (1) registra trace JSON da sessão com `session_id`, `mode`, `feature`, `tasks` (pending/done), `attempts` (coder/tester) e `violations`; (2) se a feature foi concluída, materializa episódio em `memory/episodes/YYYY-MM-DD_feature.md`; (3) se `attempts_coder=1`, appenda candidato em `memory/patterns/candidates.md`.
+
+`prompt.sh` complementa o ciclo: em cada `UserPromptSubmit`, faz leitura (seta tracejada) de `memory/episodes/` para injetar top-2 episódios similares no system prompt — fechando o loop write→read entre sessões.
 
 ---
 
