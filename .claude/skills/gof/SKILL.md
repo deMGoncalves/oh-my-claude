@@ -19,10 +19,10 @@ metadata:
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao selecionar ou implementar um dos 23 patterns GoF; ao receber recomendação de pattern de @architect; ao revisar código com problemas de design que um pattern resolveria |
-| **Prerequisites** | Princípios SOLID (rules 010–014); conceitos OOP (herança, composição, polimorfismo) |
-| **Constraints** | Não aplicar pattern sem identificar claramente o problema que resolve — overengineering (rule 064); Singleton não substitui injeção de dependência (rule 014) |
-| **Scope** | Seleção e implementação dos 23 patterns GoF organizados em Criacionais, Estruturais e Comportamentais |
+| **Aplicabilidade** | Ao selecionar ou implementar um dos 23 patterns GoF; ao receber recomendação de pattern de @architect; ao revisar código com problemas de design que um pattern resolveria |
+| **Pré-requisitos** | Princípios SOLID (rules 010–014); conceitos OOP (herança, composição, polimorfismo) |
+| **Restrições** | Não aplicar pattern sem identificar claramente o problema que resolve — overengineering (rule 064); Singleton não substitui injeção de dependência (rule 014) |
+| **Escopo** | Seleção e implementação dos 23 patterns GoF organizados em Criacionais, Estruturais e Comportamentais |
 
 ---
 

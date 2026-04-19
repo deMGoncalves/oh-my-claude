@@ -1,4 +1,4 @@
-# Episodic Memory
+# Memória Episódica
 
 Registros estruturados de features e tasks concluídas. Cada arquivo representa um episódio completo — o que foi construído, quais padrões emergiram, quantas tentativas foram necessárias.
 

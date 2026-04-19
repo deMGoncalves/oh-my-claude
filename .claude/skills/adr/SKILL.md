@@ -19,10 +19,10 @@ Template para documentar decisões arquiteturais importantes de forma rastreáve
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Toda decisão técnica significativa: escolha de tecnologia, pattern arquitetural, abordagem de design com impacto a longo prazo |
-| **Prerequisites** | Contexto claro do problema; pelo menos duas alternativas consideradas; entendimento dos trade-offs |
-| **Constraints** | Não aplica a decisões reversíveis de baixo impacto; não substituir ADR existente — criar novo com status Superseded |
-| **Scope** | Criação e manutenção de arquivos em `docs/adr/`; numeração sequencial; ciclo de vida de decisões arquiteturais |
+| **Aplicabilidade** | Toda decisão técnica significativa: escolha de tecnologia, pattern arquitetural, abordagem de design com impacto a longo prazo |
+| **Pré-requisitos** | Contexto claro do problema; pelo menos duas alternativas consideradas; entendimento dos trade-offs |
+| **Restrições** | Não aplica a decisões reversíveis de baixo impacto; não substituir ADR existente — criar novo com status Superseded |
+| **Escopo** | Criação e manutenção de arquivos em `docs/adr/`; numeração sequencial; ciclo de vida de decisões arquiteturais |
 
 ---
 

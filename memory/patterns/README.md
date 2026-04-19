@@ -1,4 +1,4 @@
-# Skill Distillation Candidates
+# Candidatos para Destilação de Skills
 
 Features concluídas com `attempts_coder: 1` e tester aprovado na primeira tentativa. São candidatos para refinamento de skills existentes ou criação de novos.
 

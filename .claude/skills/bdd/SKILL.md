@@ -19,10 +19,10 @@ Template Gherkin em português brasileiro para especificar comportamento esperad
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Fase 2 (Spec) para cada comportamento de negócio; sempre que @tester precisar de referência para criar testes; ao definir critérios de aceitação com stakeholders |
-| **Prerequisites** | Requisitos de negócio compreendidos; personas de usuário identificadas; regras de negócio mapeadas |
-| **Constraints** | Idioma obrigatório pt-BR com `# language: pt`; proibido mencionar detalhes de implementação (status HTTP, SQL, IDs internos); um arquivo `.feature` por comportamento |
-| **Scope** | Arquivos `.feature` em `docs/bdd/`; estrutura Gherkin com Funcionalidade/Cenário/Dado/Quando/Então; convenções de nomenclatura e organização |
+| **Aplicabilidade** | Fase 2 (Spec) para cada comportamento de negócio; sempre que @tester precisar de referência para criar testes; ao definir critérios de aceitação com stakeholders |
+| **Pré-requisitos** | Requisitos de negócio compreendidos; personas de usuário identificadas; regras de negócio mapeadas |
+| **Restrições** | Idioma obrigatório pt-BR com `# language: pt`; proibido mencionar detalhes de implementação (status HTTP, SQL, IDs internos); um arquivo `.feature` por comportamento |
+| **Escopo** | Arquivos `.feature` em `docs/bdd/`; estrutura Gherkin com Funcionalidade/Cenário/Dado/Quando/Então; convenções de nomenclatura e organização |
 
 ---
 

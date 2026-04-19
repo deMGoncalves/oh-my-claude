@@ -18,10 +18,10 @@ Convenção para uso de eventos DOM e eventos customizados para interatividade e
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Criação de event handlers em Web Components; despacho de eventos customizados; comunicação de mudanças de estado entre componentes via eventos DOM |
-| **Prerequisites** | Skill `constructor` (event listeners proibidos no constructor); skill `bracket` para encapsulamento de handlers via Symbol; skill `enum` para nomes de eventos customizados como constantes |
-| **Constraints** | Proibido adicionar listeners no constructor; handler deve ter responsabilidade única; modificadores devem ser funções puras sem efeitos colaterais; `bubbles: true` e `composed: true` obrigatórios em eventos customizados |
-| **Scope** | Decorator `@on.{eventType}`, modificadores disponíveis (prevent, stop, value, formData, enter, detail), criação de `CustomEvent`, nomenclatura e boas práticas de dispatch |
+| **Aplicabilidade** | Criação de event handlers em Web Components; despacho de eventos customizados; comunicação de mudanças de estado entre componentes via eventos DOM |
+| **Pré-requisitos** | Skill `constructor` (event listeners proibidos no constructor); skill `bracket` para encapsulamento de handlers via Symbol; skill `enum` para nomes de eventos customizados como constantes |
+| **Restrições** | Proibido adicionar listeners no constructor; handler deve ter responsabilidade única; modificadores devem ser funções puras sem efeitos colaterais; `bubbles: true` e `composed: true` obrigatórios em eventos customizados |
+| **Escopo** | Decorator `@on.{eventType}`, modificadores disponíveis (prevent, stop, value, formData, enter, detail), criação de `CustomEvent`, nomenclatura e boas práticas de dispatch |
 
 ---
 

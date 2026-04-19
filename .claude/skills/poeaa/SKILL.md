@@ -19,10 +19,10 @@ Padrões para aplicações enterprise organizados por camada arquitetural.
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao projetar camadas de domínio, persistência ou apresentação em aplicações enterprise; ao decidir entre Transaction Script vs Domain Model; ao decidir entre Active Record vs Data Mapper vs Repository |
-| **Prerequisites** | Skill `gof` (PoEAA usa GoF internamente); principles SOLID (rules 010–014); conceitos de separação de camadas (domain vs infrastructure) |
-| **Constraints** | Transaction Script apenas quando domínio não justifica complexidade (rule 022 KISS); Active Record viola DIP (rule 014) — usar apenas para domínios simples sem regras de negócio complexas |
-| **Scope** | 15 padrões principais organizados por camada: Lógica de Domínio, Fonte de Dados, Objeto-Relacional e Apresentação Web |
+| **Aplicabilidade** | Ao projetar camadas de domínio, persistência ou apresentação em aplicações enterprise; ao decidir entre Transaction Script vs Domain Model; ao decidir entre Active Record vs Data Mapper vs Repository |
+| **Pré-requisitos** | Skill `gof` (PoEAA usa GoF internamente); principles SOLID (rules 010–014); conceitos de separação de camadas (domain vs infrastructure) |
+| **Restrições** | Transaction Script apenas quando domínio não justifica complexidade (rule 022 KISS); Active Record viola DIP (rule 014) — usar apenas para domínios simples sem regras de negócio complexas |
+| **Escopo** | 15 padrões principais organizados por camada: Lógica de Domínio, Fonte de Dados, Objeto-Relacional e Apresentação Web |
 
 ---
 

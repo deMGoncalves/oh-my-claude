@@ -19,10 +19,10 @@ metadata:
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Fase 4 (Docs) após implementação; ao comunicar arquitetura para públicos diferentes (stakeholders, devs); ao criar ou atualizar arquivos em `docs/c4/` |
-| **Prerequisites** | Sistema ou feature implementado; nomes consistentes de sistema, containers e componentes definidos; familiaridade com o público-alvo de cada nível |
-| **Constraints** | Não misturar níveis num mesmo diagrama; Nível 4 (Code) só quando estritamente necessário; idioma pt-BR obrigatório |
-| **Scope** | 4 níveis de diagramas em `docs/c4/`: System Context (L1), Container (L2), Component (L3), Code (L4) — cada nível com público e pergunta-chave definidos |
+| **Aplicabilidade** | Fase 4 (Docs) após implementação; ao comunicar arquitetura para públicos diferentes (stakeholders, devs); ao criar ou atualizar arquivos em `docs/c4/` |
+| **Pré-requisitos** | Sistema ou feature implementado; nomes consistentes de sistema, containers e componentes definidos; familiaridade com o público-alvo de cada nível |
+| **Restrições** | Não misturar níveis num mesmo diagrama; Nível 4 (Code) só quando estritamente necessário; idioma pt-BR obrigatório |
+| **Escopo** | 4 níveis de diagramas em `docs/c4/`: System Context (L1), Container (L2), Component (L3), Code (L4) — cada nível com público e pergunta-chave definidos |
 
 ---
 

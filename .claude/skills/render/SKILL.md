@@ -18,10 +18,10 @@ Convenção para renderização e re-renderização de componentes focada em per
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao criar componentes visuais que precisam renderizar HTML e CSS; ao otimizar re-renders; ao revisar código que atualiza o DOM de forma ineficiente |
-| **Prerequisites** | Skill `anatomy` (estrutura de Web Component); skill `constructor`; conhecimento de Shadow DOM e Custom Elements API |
-| **Constraints** | Não usar `repaint` quando `retouch` é suficiente (apenas CSS muda); não re-renderizar no constructor (componente ainda não conectado); funções `component` e `style` devem ser puras (rule 036) |
-| **Scope** | Decorators `paint`, `repaint` e `retouch`; ciclo de vida de renderização (willPaint, htmlCallback, cssCallback, didPaint); otimização de performance e batching |
+| **Aplicabilidade** | Ao criar componentes visuais que precisam renderizar HTML e CSS; ao otimizar re-renders; ao revisar código que atualiza o DOM de forma ineficiente |
+| **Pré-requisitos** | Skill `anatomy` (estrutura de Web Component); skill `constructor`; conhecimento de Shadow DOM e Custom Elements API |
+| **Restrições** | Não usar `repaint` quando `retouch` é suficiente (apenas CSS muda); não re-renderizar no constructor (componente ainda não conectado); funções `component` e `style` devem ser puras (rule 036) |
+| **Escopo** | Decorators `paint`, `repaint` e `retouch`; ciclo de vida de renderização (willPaint, htmlCallback, cssCallback, didPaint); otimização de performance e batching |
 
 ---
 

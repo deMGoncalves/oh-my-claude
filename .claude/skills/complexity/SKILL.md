@@ -18,10 +18,10 @@ Convenção para manter a complexidade ciclomática (CC) de métodos dentro do l
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Escrita ou refatoração de métodos com estruturas de controle de fluxo (`if`, `for`, `while`, `switch`, `catch`, operador ternário) |
-| **Prerequisites** | Entendimento das regras de contagem de CC em `references/cc-counting-rules.md`; cada estrutura de controle adiciona +1 ao total base de 1 |
-| **Constraints** | CC > 5 é violação obrigatória da rule 022; não aplicar workarounds que movem complexidade para outros métodos sem reduzir CC real |
-| **Scope** | Medição e redução da complexidade ciclomática de métodos individuais; tabela de limites (1–5 ok, 6–7 aviso, 8–10 refatorar, >10 crítico); técnicas em `references/refactoring-techniques.md` |
+| **Aplicabilidade** | Escrita ou refatoração de métodos com estruturas de controle de fluxo (`if`, `for`, `while`, `switch`, `catch`, operador ternário) |
+| **Pré-requisitos** | Entendimento das regras de contagem de CC em `references/cc-counting-rules.md`; cada estrutura de controle adiciona +1 ao total base de 1 |
+| **Restrições** | CC > 5 é violação obrigatória da rule 022; não aplicar workarounds que movem complexidade para outros métodos sem reduzir CC real |
+| **Escopo** | Medição e redução da complexidade ciclomática de métodos individuais; tabela de limites (1–5 ok, 6–7 aviso, 8–10 refatorar, >10 crítico); técnicas em `references/refactoring-techniques.md` |
 
 ---
 

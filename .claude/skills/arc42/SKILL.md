@@ -19,10 +19,10 @@ Template de documentação arquitetural com 12 seções padronizadas.
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Fase 4 (Docs) do workflow; criação de novo projeto; mudanças arquiteturais que afetam decisões de design já documentadas |
-| **Prerequisites** | Feature ou sistema implementado; decisões arquiteturais tomadas e registradas em ADRs; diagramas C4 disponíveis para §5 |
-| **Constraints** | Não criar antes da implementação; §9 é apenas índice de ADRs — não duplicar conteúdo; idioma obrigatório pt-BR |
-| **Scope** | 12 seções em `docs/arc42/`: introdução, restrições, contexto, solução, blocos, runtime, deployment, conceitos, decisões, qualidade, riscos, glossário |
+| **Aplicabilidade** | Fase 4 (Docs) do workflow; criação de novo projeto; mudanças arquiteturais que afetam decisões de design já documentadas |
+| **Pré-requisitos** | Feature ou sistema implementado; decisões arquiteturais tomadas e registradas em ADRs; diagramas C4 disponíveis para §5 |
+| **Restrições** | Não criar antes da implementação; §9 é apenas índice de ADRs — não duplicar conteúdo; idioma obrigatório pt-BR |
+| **Escopo** | 12 seções em `docs/arc42/`: introdução, restrições, contexto, solução, blocos, runtime, deployment, conceitos, decisões, qualidade, riscos, glossário |
 
 ---
 

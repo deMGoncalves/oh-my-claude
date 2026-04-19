@@ -18,10 +18,10 @@ Convenção para uso de Design Tokens CSS ao estilizar componentes, substituindo
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao criar ou modificar estilos CSS; ao revisar código com valores hardcoded de cor, espaçamento ou tipografia; ao garantir suporte automático a dark mode via `light-dark()` |
-| **Prerequisites** | Tokens do Design System disponíveis em `packages/pixel/tokens/`; CSS Custom Properties (`var(--token)`); skill `render` (onde os estilos são aplicados via função `style`) |
-| **Constraints** | `--spacing_inset-*` apenas em `padding` (interno); `--spacing-*` em `margin` e `gap` (externo); tokens de cor `*-dark` proibidos em `background`; tokens de cor `*-light` proibidos em `color` de texto |
-| **Scope** | Mapeamento completo de propriedades CSS → categoria de tokens; escala de cores (5 tons por paleta); 9 paletas semânticas; escala de espaçamento interno vs externo |
+| **Aplicabilidade** | Ao criar ou modificar estilos CSS; ao revisar código com valores hardcoded de cor, espaçamento ou tipografia; ao garantir suporte automático a dark mode via `light-dark()` |
+| **Pré-requisitos** | Tokens do Design System disponíveis em `packages/pixel/tokens/`; CSS Custom Properties (`var(--token)`); skill `render` (onde os estilos são aplicados via função `style`) |
+| **Restrições** | `--spacing_inset-*` apenas em `padding` (interno); `--spacing-*` em `margin` e `gap` (externo); tokens de cor `*-dark` proibidos em `background`; tokens de cor `*-light` proibidos em `color` de texto |
+| **Escopo** | Mapeamento completo de propriedades CSS → categoria de tokens; escala de cores (5 tons por paleta); 9 paletas semânticas; escala de espaçamento interno vs externo |
 
 ---
 

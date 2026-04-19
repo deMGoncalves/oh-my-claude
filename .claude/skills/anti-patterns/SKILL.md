@@ -12,10 +12,10 @@ metadata:
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Code review por @architect; análise de code smells; discussões sobre qualidade de design; anotação de violações em PR |
-| **Prerequisites** | Familiaridade com as rules 052-070; capacidade de identificar sintomas estruturais e comportamentais no código |
-| **Constraints** | Não usar como desculpa para reescrever código funcional; priorizar anti-patterns críticos antes dos de média severidade |
-| **Scope** | Catálogo de 26 anti-patterns mapeados às rules do projeto, com sintomas, exemplos e estratégias de refactoring |
+| **Aplicabilidade** | Code review por @architect; análise de code smells; discussões sobre qualidade de design; anotação de violações em PR |
+| **Pré-requisitos** | Familiaridade com as rules 052-070; capacidade de identificar sintomas estruturais e comportamentais no código |
+| **Restrições** | Não usar como desculpa para reescrever código funcional; priorizar anti-patterns críticos antes dos de média severidade |
+| **Escopo** | Catálogo de 26 anti-patterns mapeados às rules do projeto, com sintomas, exemplos e estratégias de refactoring |
 
 ---
 

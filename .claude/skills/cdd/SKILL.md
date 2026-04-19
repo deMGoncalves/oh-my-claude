@@ -12,10 +12,10 @@ metadata:
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Code review por @architect; avaliação de complexidade em métodos com > 10 linhas ou aninhamento visível; priorização de refatoração entre múltiplos candidatos |
-| **Prerequisites** | Skill `complexity` para calcular CC_base; entendimento das 8 dimensões de responsabilidade e métricas de acoplamento; acesso ao código-fonte do candidato |
-| **Constraints** | Não bloquear PR com ICP 6-7 sem considerar contexto (hotfix, legado); não calcular ICP sem ler código; ICP > 10 nunca pode ser ignorado |
-| **Scope** | Cálculo da métrica ICP via 4 componentes (CC_base + Aninhamento + Responsabilidades + Acoplamento); limiares de ação; processo de revisão em 3 passos |
+| **Aplicabilidade** | Code review por @architect; avaliação de complexidade em métodos com > 10 linhas ou aninhamento visível; priorização de refatoração entre múltiplos candidatos |
+| **Pré-requisitos** | Skill `complexity` para calcular CC_base; entendimento das 8 dimensões de responsabilidade e métricas de acoplamento; acesso ao código-fonte do candidato |
+| **Restrições** | Não bloquear PR com ICP 6-7 sem considerar contexto (hotfix, legado); não calcular ICP sem ler código; ICP > 10 nunca pode ser ignorado |
+| **Escopo** | Cálculo da métrica ICP via 4 componentes (CC_base + Aninhamento + Responsabilidades + Acoplamento); limiares de ação; processo de revisão em 3 passos |
 
 ---
 

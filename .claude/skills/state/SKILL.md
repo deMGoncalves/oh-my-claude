@@ -18,10 +18,10 @@ Convenção para controle de estado em Web Components usando Element Internals A
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao criar estados gerenciáveis via `internals.states` em Web Components; ao implementar estados CSS customizados via pseudo-classe `:state()`; ao revisar código que usa atributos para gerenciar estado |
-| **Prerequisites** | Skill `setter` (setters são o ponto de entrada do estado); skill `anatomy`; Element Internals API (`attachInternals`, `states.add/delete`); Symbol como contrato de interface |
-| **Constraints** | Não usar `@retouch` ou `@repaint` em estados — estados usam `@around(contrato)` para sincronização com internals; não manipular `internals.states` diretamente no setter; cada método de contrato trata um único estado (rule 010) |
-| **Scope** | Anatomia completa de estado em Web Component: membro privado, getter, setter, Symbol de contrato, método de contrato e getter de internals com inicialização lazy |
+| **Aplicabilidade** | Ao criar estados gerenciáveis via `internals.states` em Web Components; ao implementar estados CSS customizados via pseudo-classe `:state()`; ao revisar código que usa atributos para gerenciar estado |
+| **Pré-requisitos** | Skill `setter` (setters são o ponto de entrada do estado); skill `anatomy`; Element Internals API (`attachInternals`, `states.add/delete`); Symbol como contrato de interface |
+| **Restrições** | Não usar `@retouch` ou `@repaint` em estados — estados usam `@around(contrato)` para sincronização com internals; não manipular `internals.states` diretamente no setter; cada método de contrato trata um único estado (rule 010) |
+| **Escopo** | Anatomia completa de estado em Web Component: membro privado, getter, setter, Symbol de contrato, método de contrato e getter de internals com inicialização lazy |
 
 ---
 

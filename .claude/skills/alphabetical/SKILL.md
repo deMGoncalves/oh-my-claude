@@ -18,10 +18,10 @@ Convenção para organização de propriedades em objetos e JSON.
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Criação ou modificação de objetos JS/TS, arquivos JSON, interfaces TypeScript, exports de módulo e objetos de configuração |
-| **Prerequisites** | Nenhum pré-requisito específico além do contexto do objeto sendo criado |
-| **Constraints** | Não aplicar quando a ordem tem significado semântico (coordenadas, sequências lógicas, construtores) ou em APIs externas com contrato definido |
-| **Scope** | Ordenação de propriedades em literais de objeto, chaves JSON, exports nomeados, CSS-in-JS e propriedades de classe |
+| **Aplicabilidade** | Criação ou modificação de objetos JS/TS, arquivos JSON, interfaces TypeScript, exports de módulo e objetos de configuração |
+| **Pré-requisitos** | Nenhum pré-requisito específico além do contexto do objeto sendo criado |
+| **Restrições** | Não aplicar quando a ordem tem significado semântico (coordenadas, sequências lógicas, construtores) ou em APIs externas com contrato definido |
+| **Escopo** | Ordenação de propriedades em literais de objeto, chaves JSON, exports nomeados, CSS-in-JS e propriedades de classe |
 
 ---
 

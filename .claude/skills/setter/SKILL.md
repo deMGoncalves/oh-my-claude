@@ -18,10 +18,10 @@ Convenção para uso de setters para tratamento de escrita de valores associados
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao criar setters que precisam validar entrada, sincronizar estado interno ou acionar efeitos de re-renderização; ao revisar setters que são meras atribuições sem lógica |
-| **Prerequisites** | Skill `getter` (par obrigatório); skill `render` (decorators `repaint`/`retouch`); rule 008 (proibição de getters/setters puros) |
-| **Constraints** | Setter sem lógica de tratamento viola rule 008; operações assíncronas são proibidas em setters; validações complexas devem estar em métodos de negócio, não no setter |
-| **Scope** | Padrões de implementação de setters com decorators `attributeChanged`, `retouch` e `repaint`; relação obrigatória com membros privados (`#`) |
+| **Aplicabilidade** | Ao criar setters que precisam validar entrada, sincronizar estado interno ou acionar efeitos de re-renderização; ao revisar setters que são meras atribuições sem lógica |
+| **Pré-requisitos** | Skill `getter` (par obrigatório); skill `render` (decorators `repaint`/`retouch`); rule 008 (proibição de getters/setters puros) |
+| **Restrições** | Setter sem lógica de tratamento viola rule 008; operações assíncronas são proibidas em setters; validações complexas devem estar em métodos de negócio, não no setter |
+| **Escopo** | Padrões de implementação de setters com decorators `attributeChanged`, `retouch` e `repaint`; relação obrigatória com membros privados (`#`) |
 
 ---
 

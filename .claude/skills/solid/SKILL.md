@@ -16,10 +16,10 @@ metadata:
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao decidir design de classes e interfaces; ao verificar conformidade arquitetural em code reviews; ao diagnosticar qual princípio foi violado para guiar refatoração |
-| **Prerequisites** | Conceitos OOP (herança, composição, polimorfismo, interfaces); skill `object-calisthenics` (OC aplica SOLID em nível tático) |
-| **Constraints** | Não aplicar DIP em Entidades/Value Objects ou no Root Composer — esses podem instanciar concretos; não criar interfaces de 1 método só por cumprir ISP quando não há variação real de comportamento |
-| **Scope** | Os 5 princípios SOLID (SRP, OCP, LSP, ISP, DIP) mapeados para rules 010–014, incluindo árvore de decisão e exemplos de violações simultâneas |
+| **Aplicabilidade** | Ao decidir design de classes e interfaces; ao verificar conformidade arquitetural em code reviews; ao diagnosticar qual princípio foi violado para guiar refatoração |
+| **Pré-requisitos** | Conceitos OOP (herança, composição, polimorfismo, interfaces); skill `object-calisthenics` (OC aplica SOLID em nível tático) |
+| **Restrições** | Não aplicar DIP em Entidades/Value Objects ou no Root Composer — esses podem instanciar concretos; não criar interfaces de 1 método só por cumprir ISP quando não há variação real de comportamento |
+| **Escopo** | Os 5 princípios SOLID (SRP, OCP, LSP, ISP, DIP) mapeados para rules 010–014, incluindo árvore de decisão e exemplos de violações simultâneas |
 
 ---
 

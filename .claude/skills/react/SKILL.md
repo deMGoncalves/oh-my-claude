@@ -18,10 +18,10 @@ Referência de padrões de design e renderização React (2026) baseada em [patt
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao implementar componentes React; ao escolher estratégia de renderização (CSR/SSR/SSG/ISR/RSC); ao aplicar padrões HOC/Hooks/Compound em React 18+ |
-| **Prerequisites** | JavaScript/TypeScript moderno (ES2022+); conceitos fundamentais de React (componentes, estado, ciclo de vida); para RSC: Next.js 13+ App Router |
-| **Constraints** | HOC e Render Props são padrões legados — substituir por Hooks quando possível; não usar CSR para páginas públicas com SEO crítico; não misturar Server/Client Components incorretamente |
-| **Scope** | Padrões de design React (HOC, Hooks, Compound, Container/Presentational, Render Props) e estratégias de renderização (CSR, SSR, SSG, ISR, RSC) |
+| **Aplicabilidade** | Ao implementar componentes React; ao escolher estratégia de renderização (CSR/SSR/SSG/ISR/RSC); ao aplicar padrões HOC/Hooks/Compound em React 18+ |
+| **Pré-requisitos** | JavaScript/TypeScript moderno (ES2022+); conceitos fundamentais de React (componentes, estado, ciclo de vida); para RSC: Next.js 13+ App Router |
+| **Restrições** | HOC e Render Props são padrões legados — substituir por Hooks quando possível; não usar CSR para páginas públicas com SEO crítico; não misturar Server/Client Components incorretamente |
+| **Escopo** | Padrões de design React (HOC, Hooks, Compound, Container/Presentational, Render Props) e estratégias de renderização (CSR, SSR, SSG, ISR, RSC) |
 
 ---
 

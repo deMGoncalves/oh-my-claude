@@ -16,10 +16,10 @@ metadata:
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao configurar novo projeto cloud-native; ao preparar deployment em produção; ao escalar aplicação horizontalmente; ao debugar divergências dev/prod; ao implementar observabilidade via logs |
-| **Prerequisites** | Conceitos básicos de deployment e infraestrutura cloud; rules 040–051 (categoria INFRAESTRUTURA); variáveis de ambiente (`process.env`) |
-| **Constraints** | Não aplicar regras de processo (Fator 06, stateless) em ambientes de desenvolvimento local onde combinação build+run é aceitável; não misturar configuração de build (tsconfig.json) com configuração de ambiente (process.env) |
-| **Scope** | Os 12 fatores da metodologia Twelve-Factor App mapeados para rules 040–051, com foco em portabilidade, escalabilidade horizontal e deployment contínuo |
+| **Aplicabilidade** | Ao configurar novo projeto cloud-native; ao preparar deployment em produção; ao escalar aplicação horizontalmente; ao debugar divergências dev/prod; ao implementar observabilidade via logs |
+| **Pré-requisitos** | Conceitos básicos de deployment e infraestrutura cloud; rules 040–051 (categoria INFRAESTRUTURA); variáveis de ambiente (`process.env`) |
+| **Restrições** | Não aplicar regras de processo (Fator 06, stateless) em ambientes de desenvolvimento local onde combinação build+run é aceitável; não misturar configuração de build (tsconfig.json) com configuração de ambiente (process.env) |
+| **Escopo** | Os 12 fatores da metodologia Twelve-Factor App mapeados para rules 040–051, com foco em portabilidade, escalabilidade horizontal e deployment contínuo |
 
 ---
 

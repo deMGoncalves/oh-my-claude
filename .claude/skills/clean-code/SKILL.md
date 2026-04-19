@@ -18,10 +18,10 @@ Referência de práticas Clean Code baseadas em Robert C. Martin (*Clean Code: A
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Qualquer implementação em `src/` por @coder; revisão de qualidade por @architect |
-| **Prerequisites** | Regras 021–042 carregadas; entendimento básico de OOP |
-| **Constraints** | Não aplica a arquivos de configuração, DTOs puros ou código legado em isolamento |
-| **Scope** | Nomenclatura, estrutura de funções, tratamento de erros, imutabilidade, segurança, testes |
+| **Aplicabilidade** | Qualquer implementação em `src/` por @coder; revisão de qualidade por @architect |
+| **Pré-requisitos** | Regras 021–042 carregadas; entendimento básico de OOP |
+| **Restrições** | Não aplica a arquivos de configuração, DTOs puros ou código legado em isolamento |
+| **Escopo** | Nomenclatura, estrutura de funções, tratamento de erros, imutabilidade, segurança, testes |
 
 ---
 

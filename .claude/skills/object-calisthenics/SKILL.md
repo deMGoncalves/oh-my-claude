@@ -16,10 +16,10 @@ metadata:
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao implementar classes, métodos e estruturas OOP; ao verificar conformidade com as 9 regras em code reviews; como checklist para identificar code smells em código existente |
-| **Prerequisites** | Conceitos fundamentais de OOP (classes, herança, encapsulamento, polimorfismo) |
-| **Constraints** | Não aplicar mecanicamente sem entender o problema que cada regra resolve; regra 3 (Wrap Primitives) tem exceções para primitivos genéricos sem domínio |
-| **Scope** | As 9 regras de Object Calisthenics (Jeff Bay) mapeadas para rules 001–009 deMGoncalves |
+| **Aplicabilidade** | Ao implementar classes, métodos e estruturas OOP; ao verificar conformidade com as 9 regras em code reviews; como checklist para identificar code smells em código existente |
+| **Pré-requisitos** | Conceitos fundamentais de OOP (classes, herança, encapsulamento, polimorfismo) |
+| **Restrições** | Não aplicar mecanicamente sem entender o problema que cada regra resolve; regra 3 (Wrap Primitives) tem exceções para primitivos genéricos sem domínio |
+| **Escopo** | As 9 regras de Object Calisthenics (Jeff Bay) mapeadas para rules 001–009 deMGoncalves |
 
 ---
 

@@ -18,10 +18,10 @@ Convenção para uso de mixins para composição de comportamento.
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao criar ou modificar Web Components que precisam de funcionalidades reutilizáveis; ao compor comportamentos sem herança múltipla; ao revisar classes base com responsabilidades inchadas |
-| **Prerequisites** | Conhecimento de Web Components (HTMLElement, Shadow DOM); skill `anatomy`; skill `constructor` |
-| **Constraints** | Echo deve estar sempre na cadeia de mixins para o sistema de eventos funcionar; ordem de aplicação importa (direita para esquerda); cada mixin deve ter responsabilidade única (rule 010) |
-| **Scope** | Catálogo de mixins disponíveis (Align, Color, Disabled, Headless, Height, Hidden, Reaval, Width), regras de composição e combinações comuns |
+| **Aplicabilidade** | Ao criar ou modificar Web Components que precisam de funcionalidades reutilizáveis; ao compor comportamentos sem herança múltipla; ao revisar classes base com responsabilidades inchadas |
+| **Pré-requisitos** | Conhecimento de Web Components (HTMLElement, Shadow DOM); skill `anatomy`; skill `constructor` |
+| **Restrições** | Echo deve estar sempre na cadeia de mixins para o sistema de eventos funcionar; ordem de aplicação importa (direita para esquerda); cada mixin deve ter responsabilidade única (rule 010) |
+| **Escopo** | Catálogo de mixins disponíveis (Align, Color, Disabled, Headless, Height, Hidden, Reaval, Width), regras de composição e combinações comuns |
 
 ---
 

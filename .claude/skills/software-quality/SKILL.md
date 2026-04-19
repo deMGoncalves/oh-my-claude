@@ -18,10 +18,10 @@ O modelo de qualidade McCall organiza 12 fatores em 3 dimensões para avaliar ex
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao calibrar severidade de violações de rules; ao definir critérios de aceitação de features; ao planejar cobertura de testes; ao avaliar PRs que degradam qualidade |
-| **Prerequisites** | Familiaridade com as 70 rules deMGoncalves; conceitos básicos de métricas de qualidade de software |
-| **Constraints** | Integrity é SEMPRE 🔴 Blocker — nunca ignorar; Testability < 2 impede merge; não usar como substituto das 70 rules — é uma camada de calibração de severidade sobre elas |
-| **Scope** | 12 fatores McCall (Correctness, Reliability, Efficiency, Integrity, Usability, Adaptability, Maintainability, Flexibility, Testability, Portability, Reusability, Interoperability) com sistema de pontuação 1–5 |
+| **Aplicabilidade** | Ao calibrar severidade de violações de rules; ao definir critérios de aceitação de features; ao planejar cobertura de testes; ao avaliar PRs que degradam qualidade |
+| **Pré-requisitos** | Familiaridade com as 70 rules deMGoncalves; conceitos básicos de métricas de qualidade de software |
+| **Restrições** | Integrity é SEMPRE 🔴 Blocker — nunca ignorar; Testability < 2 impede merge; não usar como substituto das 70 rules — é uma camada de calibração de severidade sobre elas |
+| **Escopo** | 12 fatores McCall (Correctness, Reliability, Efficiency, Integrity, Usability, Adaptability, Maintainability, Flexibility, Testability, Portability, Reusability, Interoperability) com sistema de pontuação 1–5 |
 
 ---
 

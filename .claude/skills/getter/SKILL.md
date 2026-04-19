@@ -18,10 +18,10 @@ Convenção para uso de getters para tratamento de leitura de valores associados
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Criação de getters que precisam aplicar valor padrão, transformação, formatação ou inicialização lazy a um membro privado (`#`) |
-| **Prerequisites** | Skill `anatomy` para posicionamento do getter na classe (grupo 2); membro privado correspondente já declarado (grupo 1) |
-| **Constraints** | Getter puro sem lógica é proibido (rule 008); getter não deve ter efeitos colaterais nem modificar estado; getter acessa apenas um membro privado |
-| **Scope** | Padrões de implementação (null coalescing `??=`, transformação condicional, inicialização lazy); relação obrigatória com membro privado; limite de 15 linhas |
+| **Aplicabilidade** | Criação de getters que precisam aplicar valor padrão, transformação, formatação ou inicialização lazy a um membro privado (`#`) |
+| **Pré-requisitos** | Skill `anatomy` para posicionamento do getter na classe (grupo 2); membro privado correspondente já declarado (grupo 1) |
+| **Restrições** | Getter puro sem lógica é proibido (rule 008); getter não deve ter efeitos colaterais nem modificar estado; getter acessa apenas um membro privado |
+| **Escopo** | Padrões de implementação (null coalescing `??=`, transformação condicional, inicialização lazy); relação obrigatória com membro privado; limite de 15 linhas |
 
 ---
 

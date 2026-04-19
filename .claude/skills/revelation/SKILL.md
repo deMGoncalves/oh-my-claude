@@ -18,10 +18,10 @@ Convenção para estrutura de index de módulos (Module Revelation Pattern).
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao criar ou organizar arquivo `index.js`/`index.ts` de um módulo; ao definir quais símbolos são públicos vs internos; ao estruturar re-exports |
-| **Prerequisites** | Conceito de encapsulamento e interface pública de módulo; rules 010 (SRP), 015 (REP) |
-| **Constraints** | Index deve conter apenas imports e re-exports diretos — sem lógica, sem variáveis intermediárias; `export *` é proibido pois vaza detalhes de implementação |
-| **Scope** | Estrutura e sintaxe do Module Revelation Pattern: `export { default }`, `export { default as Name }`, `import 'path'` com side-effect |
+| **Aplicabilidade** | Ao criar ou organizar arquivo `index.js`/`index.ts` de um módulo; ao definir quais símbolos são públicos vs internos; ao estruturar re-exports |
+| **Pré-requisitos** | Conceito de encapsulamento e interface pública de módulo; rules 010 (SRP), 015 (REP) |
+| **Restrições** | Index deve conter apenas imports e re-exports diretos — sem lógica, sem variáveis intermediárias; `export *` é proibido pois vaza detalhes de implementação |
+| **Escopo** | Estrutura e sintaxe do Module Revelation Pattern: `export { default }`, `export { default as Name }`, `import 'path'` com side-effect |
 
 ---
 

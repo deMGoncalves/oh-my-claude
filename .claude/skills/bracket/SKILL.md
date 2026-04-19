@@ -18,10 +18,10 @@ Convenção para Symbol para métodos privados e contratos de interface.
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Definição de métodos privados em Web Components; criação de contratos de interface via Symbol para mixins; ao substituir convenções frágeis de privacidade por string (`_method`) |
-| **Prerequisites** | Entendimento de JavaScript Symbol (local vs `Symbol.for()` global); estrutura do módulo dono do conceito; skill `anatomy` para posicionamento correto |
-| **Constraints** | Não exportar Symbols privados internos; não usar `Symbol.for()` sem necessidade de compartilhamento cross-módulo; Symbol sem descrição é proibido |
-| **Scope** | Criação e uso de Symbols para encapsulamento de métodos privados e definição de contratos públicos de interface em Web Components |
+| **Aplicabilidade** | Definição de métodos privados em Web Components; criação de contratos de interface via Symbol para mixins; ao substituir convenções frágeis de privacidade por string (`_method`) |
+| **Pré-requisitos** | Entendimento de JavaScript Symbol (local vs `Symbol.for()` global); estrutura do módulo dono do conceito; skill `anatomy` para posicionamento correto |
+| **Restrições** | Não exportar Symbols privados internos; não usar `Symbol.for()` sem necessidade de compartilhamento cross-módulo; Symbol sem descrição é proibido |
+| **Escopo** | Criação e uso de Symbols para encapsulamento de métodos privados e definição de contratos públicos de interface em Web Components |
 
 ---
 

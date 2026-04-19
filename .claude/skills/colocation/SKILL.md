@@ -20,10 +20,10 @@ Toda implementação em `src/` segue arquitetura de vertical slice: cada feature
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Toda criação de arquivo em `src/`; decisão de onde posicionar código novo |
-| **Prerequisites** | Conhecimento de domínio da feature; entendimento do modelo Context→Container→Component |
-| **Constraints** | Não aplica a arquivos em `src/shared/`, `src/lib/` ou config raiz do projeto |
-| **Scope** | Estrutura de diretórios em `src/`, nomeação de arquivos, separação de responsabilidades |
+| **Aplicabilidade** | Toda criação de arquivo em `src/`; decisão de onde posicionar código novo |
+| **Pré-requisitos** | Conhecimento de domínio da feature; entendimento do modelo Context→Container→Component |
+| **Restrições** | Não aplica a arquivos em `src/shared/`, `src/lib/` ou config raiz do projeto |
+| **Escopo** | Estrutura de diretórios em `src/`, nomeação de arquivos, separação de responsabilidades |
 
 ---
 

@@ -18,10 +18,10 @@ Convenção para análise de complexidade algorítmica para identificar e classi
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Avaliação de métodos com iterações sobre coleções, buscas, loops aninhados ou operações recursivas; otimização de algoritmos com complexidade acima de O(n) |
-| **Prerequisites** | Entendimento de estruturas de controle de fluxo; conhecimento de estruturas de dados nativas (Array, Map, Set) e seus custos de acesso |
-| **Constraints** | Não otimizar prematuramente — aplicar somente quando complexidade O(n²) ou superior é confirmada no código real; não se aplica a funções O(1) ou O(n) já corretas |
-| **Scope** | Classificação de complexidade por notação Big-O, detecção de padrões problemáticos, tabela de limites de ação e técnicas de refatoração algorítmica |
+| **Aplicabilidade** | Avaliação de métodos com iterações sobre coleções, buscas, loops aninhados ou operações recursivas; otimização de algoritmos com complexidade acima de O(n) |
+| **Pré-requisitos** | Entendimento de estruturas de controle de fluxo; conhecimento de estruturas de dados nativas (Array, Map, Set) e seus custos de acesso |
+| **Restrições** | Não otimizar prematuramente — aplicar somente quando complexidade O(n²) ou superior é confirmada no código real; não se aplica a funções O(1) ou O(n) já corretas |
+| **Escopo** | Classificação de complexidade por notação Big-O, detecção de padrões problemáticos, tabela de limites de ação e técnicas de refatoração algorítmica |
 
 ---
 

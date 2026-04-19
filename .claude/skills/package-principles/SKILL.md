@@ -16,10 +16,10 @@ metadata:
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao criar novo módulo/pacote; ao organizar estrutura de pastas; ao detectar imports circulares; ao avaliar estabilidade de módulo; ao versionar biblioteca compartilhada |
-| **Prerequisites** | Princípios SOLID (especialmente SRP e DIP — rules 010, 014); conceito de grafo direcionado acíclico (DAG) |
-| **Constraints** | Triângulo de tensão REP/CCP/CRP: equilibrar conforme fase do projeto (inicial = CCP; maduro = REP + CRP); não calcular métricas de abstração em pacotes de dados puros (DTOs/Value Objects) |
-| **Scope** | Os 6 princípios de pacote (REP, CCP, CRP, ADP, SDP, SAP) mapeados para rules 015–020, incluindo métricas de Instabilidade (I), Abstração (A) e Distância (D) |
+| **Aplicabilidade** | Ao criar novo módulo/pacote; ao organizar estrutura de pastas; ao detectar imports circulares; ao avaliar estabilidade de módulo; ao versionar biblioteca compartilhada |
+| **Pré-requisitos** | Princípios SOLID (especialmente SRP e DIP — rules 010, 014); conceito de grafo direcionado acíclico (DAG) |
+| **Restrições** | Triângulo de tensão REP/CCP/CRP: equilibrar conforme fase do projeto (inicial = CCP; maduro = REP + CRP); não calcular métricas de abstração em pacotes de dados puros (DTOs/Value Objects) |
+| **Escopo** | Os 6 princípios de pacote (REP, CCP, CRP, ADP, SDP, SAP) mapeados para rules 015–020, incluindo métricas de Instabilidade (I), Abstração (A) e Distância (D) |
 
 ---
 

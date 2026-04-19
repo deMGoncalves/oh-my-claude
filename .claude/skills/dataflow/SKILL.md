@@ -18,10 +18,10 @@ Convenção para comunicação de componentes via event bus com transformações
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Comunicação reativa entre Web Components desacoplados; implementação de fluxo de dados via event bus com transformações declarativas; substituição de referências diretas entre componentes |
-| **Prerequisites** | Skill `event` para entender despacho de eventos; entendimento de `morph-on` como componente receptor declarativo; componentes com atributo `name` para identificação no bus |
-| **Constraints** | Proibido criar dataflows circulares (loops infinitos); filtros devem ser funções puras sem efeitos colaterais; não usar quando há dependência direta entre componentes (usar método direto) |
-| **Scope** | Sintaxe de binding `source:event:target\|filtros`; componente `morph-on`; filtros built-in e customizados; ciclo de vida de conexão/desconexão de listeners |
+| **Aplicabilidade** | Comunicação reativa entre Web Components desacoplados; implementação de fluxo de dados via event bus com transformações declarativas; substituição de referências diretas entre componentes |
+| **Pré-requisitos** | Skill `event` para entender despacho de eventos; entendimento de `morph-on` como componente receptor declarativo; componentes com atributo `name` para identificação no bus |
+| **Restrições** | Proibido criar dataflows circulares (loops infinitos); filtros devem ser funções puras sem efeitos colaterais; não usar quando há dependência direta entre componentes (usar método direto) |
+| **Escopo** | Sintaxe de binding `source:event:target\|filtros`; componente `morph-on`; filtros built-in e customizados; ciclo de vida de conexão/desconexão de listeners |
 
 ---
 

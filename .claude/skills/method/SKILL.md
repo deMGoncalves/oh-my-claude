@@ -18,10 +18,10 @@ Convenção para implementação de métodos de classe focados em fluência e re
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao criar métodos que executam ações, operações ou coordenam comportamentos em classes; ao revisar métodos sem retorno que impedem encadeamento |
-| **Prerequisites** | Compreensão de interfaces fluentes (Builder pattern); rules 010 (SRP), 002 (no-else), 033 (max params) |
-| **Constraints** | Não aplicar retorno `this` em métodos com valor de retorno específico; não criar métodos com múltiplas responsabilidades; limite de 15 linhas por método (rule 007) |
-| **Scope** | Nomenclatura, regras de retorno, decorators associados e padrões de implementação de métodos de classe |
+| **Aplicabilidade** | Ao criar métodos que executam ações, operações ou coordenam comportamentos em classes; ao revisar métodos sem retorno que impedem encadeamento |
+| **Pré-requisitos** | Compreensão de interfaces fluentes (Builder pattern); rules 010 (SRP), 002 (no-else), 033 (max params) |
+| **Restrições** | Não aplicar retorno `this` em métodos com valor de retorno específico; não criar métodos com múltiplas responsabilidades; limite de 15 linhas por método (rule 007) |
+| **Escopo** | Nomenclatura, regras de retorno, decorators associados e padrões de implementação de métodos de classe |
 
 ---
 

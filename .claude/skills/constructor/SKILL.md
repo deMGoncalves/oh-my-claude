@@ -18,10 +18,10 @@ Convenção para estrutura de constructor em Web Components.
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Criação ou modificação de qualquer Web Component (`extends HTMLElement`); implementação do constructor de um Custom Element |
-| **Prerequisites** | Entendimento do ciclo de vida de Custom Elements (`constructor` → `connectedCallback` → `attributeChangedCallback`); skill `anatomy` para posicionamento correto do constructor na classe |
-| **Constraints** | Proibido acessar atributos, DOM externo ou fazer chamadas de API no constructor; constructor deve ser sempre síncrono; componentes headless não devem ter constructor definido |
-| **Scope** | Sequência de inicialização (`super()` → Shadow DOM → operações síncronas mínimas); configuração de `delegatesFocus`; categorias de componente (visual, headless, interativo) |
+| **Aplicabilidade** | Criação ou modificação de qualquer Web Component (`extends HTMLElement`); implementação do constructor de um Custom Element |
+| **Pré-requisitos** | Entendimento do ciclo de vida de Custom Elements (`constructor` → `connectedCallback` → `attributeChangedCallback`); skill `anatomy` para posicionamento correto do constructor na classe |
+| **Restrições** | Proibido acessar atributos, DOM externo ou fazer chamadas de API no constructor; constructor deve ser sempre síncrono; componentes headless não devem ter constructor definido |
+| **Escopo** | Sequência de inicialização (`super()` → Shadow DOM → operações síncronas mínimas); configuração de `delegatesFocus`; categorias de componente (visual, headless, interativo) |
 
 ---
 

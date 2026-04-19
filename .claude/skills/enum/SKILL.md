@@ -18,10 +18,10 @@ Convenção para criação de enums eliminando magic strings/numbers.
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao identificar strings ou números literais repetidos 2+ vezes no mesmo módulo ou entre módulos; ao criar constantes de domínio (status, tipos, roles, atributos, eventos) |
-| **Prerequisites** | Identificação do módulo proprietário do conceito; rule 024 (Proibição de Constantes Mágicas) como critério de ativação |
-| **Constraints** | Enum deve ser congelado com `Object.freeze()`; valor literal único (1 ocorrência) não justifica enum; o módulo proprietário do conceito é o dono do enum |
-| **Scope** | Estrutura `Object.freeze({KEY: 'value'})` com nomenclatura `UPPER_SNAKE_CASE`; categorias (Status, Element, Property, Event, Type, Attribute); localização no módulo proprietário |
+| **Aplicabilidade** | Ao identificar strings ou números literais repetidos 2+ vezes no mesmo módulo ou entre módulos; ao criar constantes de domínio (status, tipos, roles, atributos, eventos) |
+| **Pré-requisitos** | Identificação do módulo proprietário do conceito; rule 024 (Proibição de Constantes Mágicas) como critério de ativação |
+| **Restrições** | Enum deve ser congelado com `Object.freeze()`; valor literal único (1 ocorrência) não justifica enum; o módulo proprietário do conceito é o dono do enum |
+| **Escopo** | Estrutura `Object.freeze({KEY: 'value'})` com nomenclatura `UPPER_SNAKE_CASE`; categorias (Status, Element, Property, Event, Type, Attribute); localização no módulo proprietário |
 
 ---
 

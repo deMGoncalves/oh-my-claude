@@ -18,10 +18,10 @@ Convenção para marcação de código com tags de comentário padronizadas para
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Quando @architect identifica violações de regras durante revisão; ao registrar débito técnico, bugs conhecidos, otimizações pendentes ou problemas de segurança |
-| **Prerequisites** | Identificação da violação específica e da rule correspondente; referência às 16 tags disponíveis em `references/tags-reference.md` |
-| **Constraints** | Uma tag por violação; nunca criar tag sem descrição; FIXME reservado para violações críticas; não usar para substituir correção imediata quando possível |
-| **Scope** | Inserção de comentários padronizados com formato `// TAG(rule-id): descrição` na linha acima da seção problemática em qualquer arquivo de código-fonte |
+| **Aplicabilidade** | Quando @architect identifica violações de regras durante revisão; ao registrar débito técnico, bugs conhecidos, otimizações pendentes ou problemas de segurança |
+| **Pré-requisitos** | Identificação da violação específica e da rule correspondente; referência às 16 tags disponíveis em `references/tags-reference.md` |
+| **Restrições** | Uma tag por violação; nunca criar tag sem descrição; FIXME reservado para violações críticas; não usar para substituir correção imediata quando possível |
+| **Escopo** | Inserção de comentários padronizados com formato `// TAG(rule-id): descrição` na linha acima da seção problemática em qualquer arquivo de código-fonte |
 
 ---
 

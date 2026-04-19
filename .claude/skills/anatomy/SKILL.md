@@ -18,10 +18,10 @@ Convenção para organização de membros dentro de uma classe.
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Criação ou refatoração de qualquer classe, Web Component ou módulo JavaScript/TypeScript com múltiplos membros |
-| **Prerequisites** | Entendimento da distinção entre membros privados (`#`), getters/setters, constructor, métodos de instância e métodos estáticos |
-| **Constraints** | Não aplica a objetos literais ou funções puras; a ordem de 7 grupos é fixa e não pode ser reordenada por preferência |
-| **Scope** | Ordem de declaração dos 7 grupos de membros dentro de uma classe: privados → getters/setters → getters/setters estáticos → constructor → métodos → métodos estáticos → bloco static |
+| **Aplicabilidade** | Criação ou refatoração de qualquer classe, Web Component ou módulo JavaScript/TypeScript com múltiplos membros |
+| **Pré-requisitos** | Entendimento da distinção entre membros privados (`#`), getters/setters, constructor, métodos de instância e métodos estáticos |
+| **Restrições** | Não aplica a objetos literais ou funções puras; a ordem de 7 grupos é fixa e não pode ser reordenada por preferência |
+| **Escopo** | Ordem de declaração dos 7 grupos de membros dentro de uma classe: privados → getters/setters → getters/setters estáticos → constructor → métodos → métodos estáticos → bloco static |
 
 ---
 

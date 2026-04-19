@@ -18,10 +18,10 @@ Convenção para estrutura de stories no Storybook.
 
 | Campo | Valor |
 |-------|-------|
-| **Applicability** | Ao criar ou atualizar stories no Storybook; ao estruturar stories de componentes com variantes, estados e documentação |
-| **Prerequisites** | Storybook instalado e configurado no projeto; componente Web Component ou framework implementado; skill `anatomy` |
-| **Constraints** | Arquivos de story devem ser JavaScript, não TypeScript; uma única story `Default` por arquivo; sem `play` functions ou testes de interação em stories (regra do projeto) |
-| **Scope** | Estrutura de export default (configuração), argTypes (documentação), controles de UI e função `render` para stories de Web Components |
+| **Aplicabilidade** | Ao criar ou atualizar stories no Storybook; ao estruturar stories de componentes com variantes, estados e documentação |
+| **Pré-requisitos** | Storybook instalado e configurado no projeto; componente Web Component ou framework implementado; skill `anatomy` |
+| **Restrições** | Arquivos de story devem ser JavaScript, não TypeScript; uma única story `Default` por arquivo; sem `play` functions ou testes de interação em stories (regra do projeto) |
+| **Escopo** | Estrutura de export default (configuração), argTypes (documentação), controles de UI e função `render` para stories de Web Components |
 
 ---
 
