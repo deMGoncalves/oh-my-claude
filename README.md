@@ -1,595 +1,368 @@
 # oh my claude
 
-**Author:** Cleber de Moraes Goncalves · [@deMGoncalves](https://github.com/deMGoncalves)
+**Autor:** Cleber de Moraes Goncalves · [@deMGoncalves](https://github.com/deMGoncalves)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-CLI-blueviolet)](https://code.claude.com)
-[![Agents](https://img.shields.io/badge/Agents-5-blue)](#agents)
-[![Skills](https://img.shields.io/badge/Skills-35-green)](#skills-35-skills)
-[![Rules](https://img.shields.io/badge/Rules-70-orange)](#rules-70-rules)
-[![MCPs](https://img.shields.io/badge/MCPs-8-lightgrey)](#mcps)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Required-blueviolet)](https://claude.ai/code)
+[![Agents](https://img.shields.io/badge/Agents-6-blue)](#agentes)
+[![Rules](https://img.shields.io/badge/Rules-70-orange)](#regras)
+[![Skills](https://img.shields.io/badge/Skills-35-green)](#skills)
+[![Hooks](https://img.shields.io/badge/Hooks-6-red)](#hooks)
+[![Memory](https://img.shields.io/badge/Memory-Persistent-brightgreen)](#memória)
 
-Personal workflow for AI-assisted development. It's not a framework, not a tool — it's the way I think, write and build software, encoded into agents, rules and skills for [Claude Code](https://code.claude.com).
+Um harness de engenharia de software para Claude Code que **externaliza cognição** em agentes, regras, skills, hooks e memória persistente — transformando um LLM generalista em um sistema disciplinado de entrega de código.
 
 ---
 
-## Setup
+## O que é
 
-### Prerequisites
+`oh my claude` **não é um framework**, **não é um plugin**, e **não é um prompt gigante**. É um diretório `.claude/` que, quando colocado na raiz de qualquer projeto, reconfigura o Claude Code para operar como um sistema de engenharia com papéis especializados, regras arquiteturais mensuráveis, memória de longo prazo e controles automáticos de qualidade.
 
-| Tool                                       | What it's for                    | Installation                                |
-| ------------------------------------------ | -------------------------------- | ------------------------------------------- |
-| [Claude Code CLI](https://code.claude.com) | Run agents and workflow          | `npm install -g @anthropic-ai/claude-code`  |
-| [Bun](https://bun.sh)                      | Runtime + test runner            | `curl -fsSL https://bun.sh/install \| bash` |
-| [Biome](https://biomejs.dev)               | Linter + formatter (auto via hook) | already included — runs via `bunx biome`   |
-| [GitHub CLI](https://cli.github.com)       | Used by `/audit` and `/ship`     | `brew install gh`                           |
-| [jq](https://jqlang.github.io/jq/)         | JSON parsing in hooks            | `brew install jq`                           |
+Na prática, quando você abre o projeto com `claude .`, o harness carrega:
 
-### Configuration
+- **6 agentes especializados** (planner, architect, designer, coder, tester, deepdive) — cada um com escopo, ciclos limitados e acesso apenas às skills e regras que precisam.
+- **70 regras arquiteturais** (Object Calisthenics, SOLID, 12-Factor, anti-patterns) aplicadas automaticamente por hooks que bloqueiam violações críticas antes que cheguem ao commit.
+- **35 skills** organizadas em três níveis de *progressive disclosure*, carregadas sob demanda para evitar inflação de contexto.
+- **6 hooks de ciclo de vida** que observam, protegem e instrumentam cada interação.
+- **Um sistema de memória em três camadas** (`changes/`, `memory/episodes/`, `memory/patterns/`, `memory/semantic/`) que preserva contexto entre sessões e aprende com execuções anteriores.
+
+O que ele **não faz**: não substitui o modelo, não executa em background, não treina nada, não "melhora o prompt". Ele organiza o ambiente ao redor do modelo para que o modelo possa produzir trabalho reproduzível.
+
+---
+
+## Por que assim
+
+A motivação teórica vem do paper *"Externalization in LLM Agents: A Unified Review of Memory, Skills, Protocols and Harness Engineering"* (2026), cuja tese central é:
+
+> *"Agency is not located in the model alone; it emerges from the coupling of the model with the environment that organizes its cognition into action."*
+
+LLMs têm um perfil cognitivo assimétrico: são excelentes em **síntese flexível** (raciocinar, combinar, adaptar), mas frágeis em três dimensões que engenharia exige:
+
+1. **Memória estável** — esquecem o que decidiram há 30 turnos.
+2. **Repetibilidade procedural** — improvisam variações sutis em workflows que deveriam ser idênticos.
+3. **Interação governada** — aceitam qualquer entrada e produzem qualquer saída sem contratos firmes.
+
+A solução não é "prompt melhor" nem "modelo maior" — é **construir um sistema cognitivo maior ao redor do modelo**, externalizando as capacidades que ele não tem em artefatos estáveis que ele pode consultar, seguir e atualizar.
+
+### Os três módulos de externalização
+
+| Módulo | O que externaliza | Onde vive | Transforma |
+|--------|-------------------|-----------|------------|
+| **Memória** | Estado temporal (decisões, progresso, aprendizados) | `changes/`, `memory/` | Recall interno → retrieval externo |
+| **Skills** | Expertise procedural (como fazer X corretamente) | `.claude/skills/` | Geração improvisada → execução guiada |
+| **Protocolos** | Disciplina de interação (contratos, validações, ciclos) | `hooks/`, `commands/`, `agents/` | Coordenação ad hoc → contratos governados |
+
+Cada decisão de design do `oh my claude` se encaixa em um desses módulos. Não há regras soltas, skills decorativas ou hooks "caso dê certo" — tudo existe para compensar uma fraqueza conhecida do modelo com um artefato externo verificável.
+
+### Por que regras em vez de instruções no prompt
+
+Uma regra como *"arquivos de classe devem ter no máximo 50 linhas"* pode viver em três lugares:
+
+1. **Dentro do prompt** — o modelo esquece em conversas longas, interpreta flexivelmente, e a verificação é subjetiva.
+2. **Dentro de um guia textual** — melhora um pouco, mas depende do modelo lembrar de consultar.
+3. **Em um arquivo de regra estruturada + hook que bloqueia violações** — verificável, não-negociável, auditável.
+
+O harness escolhe sempre o terceiro caminho. Cada uma das 70 regras tem ID, severidade (🔴 Crítica, 🟠 Alta, 🟡 Média), critérios objetivos e detecção automática. Violações 🔴 Críticas são bloqueadas pelo `guard.sh` antes de o arquivo ser salvo.
+
+### Por que skills com progressive disclosure
+
+Um prompt que contenha todo o conhecimento necessário para codar bem teria centenas de milhares de tokens. Isso é impraticável. A alternativa é **disclosure em três níveis**:
+
+- **Nível 1 — Frontmatter** (50 tokens): nome + descrição curta. Carregado sempre, usado para descoberta.
+- **Nível 2 — Manifest** (200–500 tokens): aplicabilidade, pré-requisitos, restrições, escopo. Carregado quando o agente decide "essa skill é relevante".
+- **Nível 3 — References** (até 10k tokens): guia completo com exemplos, anti-patterns, casos extremos. Carregado apenas quando o agente vai efetivamente usar.
+
+O resultado: o agente tem acesso potencial a 35 skills, mas consome contexto apenas das que efetivamente usa na tarefa corrente.
+
+### Por que agentes especializados em vez de um "super-agente"
+
+Um único agente que planeja, desenha, codifica e testa tende a misturar os modos: começa a codar antes de especificar, ou começa a testar antes de implementar. Separar em 6 agentes com contratos de entrada/saída explícitos força transições limpas entre fases e permite que cada agente carregue **apenas** o contexto e as skills que importam para seu papel.
+
+### Por que memória em três camadas
+
+Não toda memória tem o mesmo tempo de vida:
+
+- **Working (`changes/`)** — vive uma feature/task. Decisões operacionais que ficam obsoletas ao encerrar.
+- **Episódica (`memory/episodes/`)** — vive para sempre. Registro de "o que aconteceu nesta sessão" para recuperação contextual futura.
+- **Procedural (`memory/patterns/`)** — padrões recorrentes detectados. Candidatos a virar skills ou regras.
+- **Semântica (`memory/semantic/`)** — conhecimento de domínio curado manualmente.
+
+Separar os tempos de vida evita que decisões efêmeras poluam conhecimento estável, e que conhecimento estável seja sobrescrito por decisões operacionais.
+
+---
+
+## Como funciona
+
+Quando você envia um pedido ao Claude Code com o `oh my claude` ativo, acontece o seguinte:
+
+1. **`prompt.sh`** intercepta sua mensagem, detecta verbos de ação, injeta uma dica de modo (Quick/Task/Feature/Research/UI) e, se houver episódios passados relevantes, injeta referências para recuperação contextual.
+2. **Tech Lead (CLAUDE.md)** classifica o pedido em um dos 5 modos e delega ao agente apropriado via Agent Tool.
+3. **Agente ativo** lê suas regras, carrega suas skills, produz seu entregável e devolve controle.
+4. **`lint.sh`**, **`security.sh`** e **`guard.sh`** rodam a cada escrita de arquivo — formatam, bloqueiam credenciais, bloqueiam violações 🔴 Críticas.
+5. **`loop.sh`** verifica, antes de encerrar o turno, se há tarefas pendentes (`- [ ]`) em `changes/*/tasks.md`. Se houver, bloqueia e força continuação.
+6. **`telemetry.sh`** registra o episódio (passos, agentes usados, duração) em `memory/episodes/` e, se detectar padrões repetíveis, salva candidatos em `memory/patterns/`.
+
+### Os 5 modos de trabalho
+
+| Modo | Quando | Fluxo |
+|------|--------|-------|
+| **Quick** | ≤2 arquivos, sem nova entidade | `@coder` → `@tester` → `@architect` (review) |
+| **Task** | Novo contrato, escopo claro | `@planner` → `@architect` → `@coder` → `@tester` |
+| **Feature** | Novo contexto delimitado, impacto amplo | `@planner` → `@architect` → `@coder` → `@tester` → `@architect docs` |
+| **Research** | Causa raiz desconhecida, bug misterioso | `@deepdive` → `@planner` → Task ou Feature |
+| **UI** | Componente visual | `@planner` → `@designer` + `@architect` → `@coder` → `@tester` |
+
+Cada modo tem um contrato de contexto em `changes/00X_nome/`: `PRD.md`, `specs.md`, `design.md`, `tasks.md` e contadores de tentativas. Isso é a **memória de working**: viva enquanto a feature existe, arquivada quando a feature encerra.
+
+### Ciclos limitados (bounded loops)
+
+Cada agente tem no máximo 3 tentativas por tarefa antes de escalar para o usuário. O contador vive em `tasks.md`:
+
+```html
+<!-- attempts-coder: 2 -->
+<!-- attempts-tester: 1 -->
+```
+
+Na 3ª tentativa, o Tech Lead pergunta: *"re-spec ou continuar?"*. Na 4ª, re-spec é obrigatório. Isso impede loops infinitos onde o agente tenta as mesmas variações até esgotar tokens.
+
+---
+
+## Agentes
+
+| Agente | Modelo | Papel | Entrega principal |
+|--------|--------|-------|-------------------|
+| `@planner` | Opus | Decompõe pedidos em grafo de tarefas `T-001..T-NNN` | `tasks.md`, `PRD.md` |
+| `@architect` | Opus | Specs técnicas, padrões (GoF/PoEAA), revisão, documentação | `specs.md`, `design.md`, `docs/arc42/`, ADRs |
+| `@designer` | Sonnet | Specs de UI, design tokens, acessibilidade WCAG | `design-spec.md` |
+| `@coder` | Sonnet | Implementa código seguindo specs + 70 regras | código em `src/` |
+| `@tester` | Sonnet | Valida via testes (evaluator pattern), cobertura ≥85% domínio | testes + relatório |
+| `@deepdive` | Opus | Investigação profunda: bugs, performance, segurança | `findings.md` |
+
+Cada agente tem: contrato de entrada, anti-objetivos (o que **não** faz), skills que carrega, regras que aplica e critérios mensuráveis de conclusão.
+
+---
+
+## Regras
+
+70 regras arquiteturais com severidade explícita. Cada regra tem ID, nome, categoria, critérios objetivos, exceções permitidas, método de detecção manual e automática.
+
+| Categoria | IDs | Fonte | Exemplos |
+|-----------|-----|-------|----------|
+| **Object Calisthenics** | 001–009 | Jeff Bay (Thoughtworks) | Nível único de indentação, proibição de else, encapsulamento de primitivos |
+| **SOLID** | 010–014 | Uncle Bob | SRP, OCP, LSP, ISP, DIP |
+| **Princípios de Pacote** | 015–020 | Robert C. Martin | REP, CCP, CRP, ADP, SDP, SAP |
+| **Clean Code** | 021–039 | Clean Code practices | DRY, KISS, YAGNI, Boy Scout Rule, nomes consistentes |
+| **Twelve-Factor** | 040–051 | 12factor.net | Codebase única, config via ambiente, processos stateless, logs como stream |
+| **Anti-Patterns** | 052–070 | Fowler + Brown | God Object, Spaghetti, Feature Envy, Middle Man, Callback Hell, Poltergeists |
+
+**Severidades:**
+- 🔴 **Crítica** — bloqueada automaticamente por `guard.sh`. Exemplos: 003 (Primitive Obsession), 008 (Getters/Setters), 010 (SRP), 014 (DIP), 025 (God Object), 030 (eval/secrets), 031 (imports relativos).
+- 🟠 **Alta** — requer correção antes do PR. Exemplos: 001 (indentação), 002 (else), 011 (OCP), 015–019 (pacotes), 055 (método longo).
+- 🟡 **Média** — melhoria esperada na Regra do Escoteiro. Exemplos: 005 (chaining), 006 (nomes abreviados), 022 (KISS), 061 (Middle Man).
+
+**Próximo ID disponível:** `071`.
+
+---
+
+## Skills
+
+35 módulos de conhecimento carregados sob demanda pelos agentes, organizados em grupos temáticos:
+
+| Grupo | Skills |
+|-------|--------|
+| **Estrutura de classe** | `anatomy`, `constructor`, `bracket` |
+| **Membros** | `getter`, `setter`, `method` |
+| **Comportamento** | `event`, `dataflow`, `render`, `state` |
+| **Dados** | `enum`, `token`, `alphabetical` |
+| **Organização** | `colocation`, `revelation`, `story` |
+| **Composição** | `mixin`, `complexity`, `big-o` |
+| **Anotação** | `codetags` |
+| **Princípios OOP** | `object-calisthenics`, `solid`, `package-principles` |
+| **Qualidade de código** | `clean-code`, `cdd`, `software-quality` |
+| **Infraestrutura** | `twelve-factor` |
+| **Design Patterns** | `gof` (23 padrões), `poeaa` (51 padrões) |
+| **Documentação** | `arc42`, `c4model`, `adr`, `bdd` |
+| **Frontend** | `react`, `anti-patterns` |
+
+### Progressive Disclosure em 3 níveis
+
+Cada skill segue a estrutura:
+
+```
+.claude/skills/gof/
+├── SKILL.md              ← nível 1 + 2 (frontmatter + manifest)
+└── references/
+    ├── strategy.md       ← nível 3 (guia completo do padrão)
+    ├── factory.md
+    └── ...
+```
+
+- **Nível 1 (frontmatter)** — sempre carregado. Descreve quando a skill é relevante. Usado pelo agente para *discovery*.
+- **Nível 2 (Manifest)** — carregado quando o agente suspeita que a skill é útil. Contém aplicabilidade, pré-requisitos, restrições, escopo. Usado para *seleção*.
+- **Nível 3 (references)** — carregado apenas quando o agente vai executar. Contém guia completo, exemplos, anti-patterns. Usado para *execução*.
+
+Esse modelo evita que 35 skills × 10k tokens = 350k tokens sejam despejados no contexto em toda interação.
+
+---
+
+## Memória
+
+Sistema de memória em três camadas com tempos de vida distintos:
+
+### Working (`changes/`)
+
+Memória de **uma feature/task**. Vive enquanto a entrega estiver ativa. Contém:
+
+```
+changes/00X_feature-name/
+├── PRD.md          ← (Feature) requisitos + regras de negócio
+├── design.md       ← (Feature) decisões técnicas + padrões
+├── specs.md        ← (Task + Feature) interfaces + critérios de aceitação
+├── design-spec.md  ← (UI) spec de componente + acessibilidade
+├── findings.md     ← (Research) relatório de investigação
+└── tasks.md        ← T-001…T-NNN + contadores de tentativas
+```
+
+Quando a feature é encerrada (`/ship`), o conteúdo é consolidado em `memory/episodes/` e o diretório é arquivado.
+
+### Episódica (`memory/episodes/`)
+
+Memória **cross-session**. Preservada para sempre. Cada arquivo é um registro estruturado de uma feature concluída: modo escolhido, agentes usados, duração, arquivos alterados, decisões tomadas, problemas encontrados. Gravada automaticamente por `telemetry.sh` no evento `Stop`.
+
+Usada por `prompt.sh` no início de sessões futuras para **recuperação contextual**: se você abre uma feature nova parecida com uma antiga, episódios relevantes são injetados como referência.
+
+### Procedural (`memory/patterns/`)
+
+**Candidatos a destilação**. Quando `telemetry.sh` detecta que um episódio terminou com `attempts_coder=1` e `attempts_tester=1` (execução limpa), o fluxo é marcado como *padrão candidato*. Se o mesmo padrão aparecer em N episódios, vira candidato a skill ou regra nova.
+
+### Semântica (`memory/semantic/`)
+
+Conhecimento de **domínio do projeto** curado manualmente. Glossários, vocabulário ubíquo, regras de negócio estáveis. Não é gerado automaticamente — é atualizado pelo time quando o domínio muda.
+
+---
+
+## Hooks
+
+6 scripts shell que observam e intervêm no ciclo de vida das interações. Nenhum precisa ser chamado manualmente.
+
+| Hook | Evento | Função |
+|------|--------|--------|
+| `prompt.sh` | `UserPromptSubmit` | Detecta verbos de ação, injeta dica de modo, recupera episódios relevantes |
+| `lint.sh` | `PostToolUse` (Write/Edit) | Auto-formata arquivos escritos via linter do projeto (Biome/ESLint) |
+| `security.sh` | `PostToolUse` (Write/Edit) | Bloqueia se detecta credenciais hardcoded (API keys, tokens, senhas) |
+| `guard.sh` | `PostToolUse` (Write/Edit) | Bloqueia se detecta violação 🔴 Crítica das 70 regras |
+| `loop.sh` | `Stop` | Bloqueia encerramento se houver `- [ ]` pendente em `changes/*/tasks.md` |
+| `telemetry.sh` | `Stop` | Grava episódio em `memory/episodes/` e candidatos de padrão em `memory/patterns/` |
+
+### Escape hatch
+
+Se o workflow travar (ex: `loop.sh` bloqueando indevidamente):
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/melisource/fury_oh-my-claude
-cd fury_oh-my-claude
+touch .claude/.loop-skip   # pula uma verificação de loop.sh
+rm .claude/.loop-skip      # remove após resolver a causa real
+```
 
-# 2. Open in Claude Code
+O escape deve ser **exceção, não rotina**. Se está usando repetidamente, é sinal de que o fluxo ou as specs estão errados.
+
+---
+
+## Comandos
+
+6 comandos slash que disparam workflows completos:
+
+| Comando | Descrição |
+|---------|-----------|
+| `/start [nome]` | Inicializa nova Feature ou Task em `changes/` com scaffolding completo |
+| `/status` | Dashboard de progresso das features ativas |
+| `/audit [branch\|pr N\|src/path]` | Revisão arquitetural completa via `@architect` |
+| `/docs [path]` | Sincroniza documentação arquitetural (`arc42/`, `c4/`, `adr/`, `bdd/`) |
+| `/ship` | Commit com Conventional Commits + push + arquivamento de `changes/` |
+| `/sync` | Atualiza branch com remoto |
+
+---
+
+## Quick Start
+
+```bash
+# 1. Clone o harness
+git clone https://github.com/deMGoncalves/oh-my-claude
+cd oh-my-claude
+
+# 2. Abra com Claude Code
 claude .
 ```
 
-Claude Code automatically detects `.claude/` and loads all agents, skills, rules and hooks.
+**Pré-requisitos:** apenas o Claude Code CLI.
 
-### Required tokens (optional MCPs)
+**Dependências opcionais:**
+- `gh` (GitHub CLI) — necessário para `/audit` e `/ship`.
+- `jq` — necessário para roteamento dos hooks.
 
-Two MCPs need tokens to work — edit `.mcp.json` with real values:
-
-```bash
-# Figma token
-# figma.com → Settings → Security → Personal access tokens
-FIGMA_TOKEN="your-token-here"
-
-# GitHub token
-# github.com → Settings → Developer settings → Personal access tokens → Classic
-# Required scopes: repo, workflow
-GITHUB_TOKEN="ghp_your-token-here"
-```
-
-Replace placeholders in `.mcp.json`:
-
-- `SEU_FIGMA_TOKEN_AQUI` → Figma token
-- `SEU_GITHUB_TOKEN_AQUI` → GitHub token
-
-The other 6 MCPs (`cloudflare`, `context7`, `fetch`, `memory`, `puppeteer`, `storybook`) work without additional configuration.
+Ao abrir, o Claude Code detecta o diretório `.claude/` e carrega automaticamente agentes, regras, skills e hooks. Na primeira interação, o Tech Lead verifica `changes/*/tasks.md` por trabalho em andamento e informa o estado da sessão.
 
 ---
 
-## Structure
+## Estrutura de diretórios
 
 ```
 .claude/
-├── CLAUDE.md          ← central hub
-├── GRAPH.md           ← dependency map (Mermaid)
-├── agents/            ← 5 specialized agents
-├── skills/            ← 35 skills (code + architecture + quality)
-├── rules/             ← 70 architectural rules (001–070)
-├── commands/          ← 5 workflow commands
-├── hooks/             ← 3 automatic hooks
-└── settings.json      ← permissions + hooks
+├── CLAUDE.md              ← hub de orquestração (Tech Lead)
+├── GRAPH.md               ← grafos de dependências Mermaid
+├── README.md              ← referência interna completa do harness
+├── agents/                ← 6 agentes especializados
+│   ├── planner.md
+│   ├── architect.md
+│   ├── designer.md
+│   ├── coder.md
+│   ├── tester.md
+│   └── deepdive.md
+├── commands/              ← 6 comandos slash
+│   ├── start.md
+│   ├── status.md
+│   ├── audit.md
+│   ├── docs.md
+│   ├── ship.md
+│   └── sync.md
+├── hooks/                 ← 6 hooks automáticos
+│   ├── prompt.sh
+│   ├── lint.sh
+│   ├── security.sh
+│   ├── guard.sh
+│   ├── loop.sh
+│   └── telemetry.sh
+├── rules/                 ← 70 regras arquiteturais (001–070)
+├── skills/                ← 35 skills com progressive disclosure
+└── settings.json          ← permissões + configuração de hooks
 
-changes/               ← persistent feature context
+changes/                   ← memória working (por feature ativa)
 └── 00X_feature-name/
-    ├── PRD.md         ← (Feature only) requirements + business rules
-    ├── design.md      ← (Feature only) technical decisions + patterns
-    ├── specs.md       ← (Task + Feature) interfaces + acceptance criteria
-    └── tasks.md       ← T-001…T-NNN + attempt counters
+    ├── PRD.md, design.md, specs.md, tasks.md, findings.md
 
-docs/                  ← synced architectural documentation
-├── arc42/             ← 12 architectural sections
-├── c4/                ← 4 abstraction levels
-├── adr/               ← Architecture Decision Records
-└── bdd/               ← Gherkin features in pt-BR
+memory/                    ← memória persistente cross-session
+├── episodes/              ← gerado por telemetry.sh ao concluir feature
+├── patterns/              ← candidatos de destilação
+└── semantic/              ← conhecimento de domínio curado
+
+docs/                      ← documentação arquitetural sincronizada
+├── arc42/                 ← 12 seções arquiteturais
+├── c4/                    ← 4 níveis de abstração
+├── adr/                   ← Architecture Decision Records
+└── bdd/                   ← features Gherkin
 ```
+
+A documentação interna do harness (conteúdo de `.claude/`) é escrita em português. Este README e arquivos externos (`LICENSE`, `CONTRIBUTING.md`) também estão em português.
 
 ---
 
-## Architecture
+## Contribuindo
 
-### Components and connections
-
-```
- ┌──────────────────────────────────────────────────────────────┐
- │                          .claude/                            │
- │                                                              │
- │  ┌──────────────┐  ┌────────────────┐  ┌─────────────────┐   │
- │  │   hooks/     │  │   commands/    │  │    agents/      │   │
- │  │              │  │                │  │                 │   │
- │  │ prompt.sh    │  │  /start        │  │  🔵 @leader     │   │
- │  │ ↳ mode hint  │  │  /status       │  │  🟢 @architect  │   │
- │  │              │  │  /audit        │  │  🟡 @developer  │   │
- │  │ lint.sh      │  │  /docs         │  │  🔴 @tester     │   │
- │  │ ↳ biome fmt  │  │  /ship  /sync  │  │  🟣 @reviewer   │   │
- │  │              │  │                │  │                 │   │
- │  │ loop.sh      │  └────────────────┘  └────────┬────────┘   │
- │  │ ↳ tasks.md   │                               │            │
- │  └──────┬───────┘                               │            │
- │         └───────────────────────────────────────┘            │
- │                              │ load                          │
- │  ┌───────────────────────────▼───────────────────────────┐   │
- │  │   skills/ (35)                    rules/ (70)         │   │
- │  │                                                       │   │
- │  │  cdd · codetags · complexity    001–009 Object Cal.   │   │
- │  │  solid · gof · poeaa            010–014 SOLID         │   │
- │  │  colocation · clean-code · ...  052–070 Anti-Patterns │   │
- │  └───────────────────────────────────────────────────────┘   │
- │                                                              │
- │  ┌───────────────────────────────────────────────────────┐   │
- │  │  .mcp.json — MCPs (8)                                 │   │
- │  │  figma · github · fetch · memory · puppeteer · ...    │   │
- │  └───────────────────────────────────────────────────────┘   │
- └──────────────────────────────────────────────────────────────┘
-```
-
-### Task flow
-
-```
-  user input
-       │
-  ┌────▼──────────────────────────────────────────┐
-  │ prompt.sh — detects action verb → injects mode │
-  └────┬──────────────────────────────────────────┘
-       │
-  ┌────▼─────────────────────────────────────────────────┐
-  │                  🔵 @leader                          │
-  │         classifies → Quick / Task / Feature          │
-  └────┬─────────────────────┬──────────────┬────────────┘
-       │                     │              │
-    Quick                  Task          Feature
-       │                     │              │
-       │              ┌──────▼──────┐  ┌───▼──────────────┐
-       │              │ 🟢 @arch    │  │   🟢 @architect   │
-       │              │ light specs │  │ PRD+design+specs │
-       │              └──────┬──────┘  └───┬──────────────┘
-       │                     │             │
-       └─────────────────────┴─────────────┘
-                             │
-                  src/[context]/[container]/[component]/
-                             │
-  ┌──────────────────────────▼────────────────────────────┐
-  │ 🟡 @developer — controller · service · model · repo   │
-  └──────────────────────────┬────────────────────────────┘
-                  [lint.sh → biome format on each Write]
-  ┌──────────────────────────▼────────────────────────────┐
-  │ 🔴 @tester — bun test --coverage  ≥ 85% domain        │
-  └──────────────────────────┬────────────────────────────┘
-  ┌──────────────────────────▼────────────────────────────┐
-  │ 🟣 @reviewer — ICP · 70 rules · security              │
-  │               educational codetags in code            │
-  └────────────┬─────────────────────────┬────────────────┘
-               │                         │
-         ✅ Approved              ❌ Rejected
-               │                    ↩ @developer (up to 3x)
-  [loop.sh checks tasks.md · blocks if - [ ] exists]
-```
+Contribuições são bem-vindas. Abra uma issue para reportar bugs, propor novas regras, skills ou hooks, ou abra um PR seguindo [CONTRIBUTING.md](CONTRIBUTING.md). Propostas de novas regras devem incluir critérios objetivos e método de detecção automática; propostas de novas skills devem seguir o modelo de progressive disclosure em três níveis.
 
 ---
 
-## How it works
-
-Every development request goes through `@leader`, which **classifies the request into one of 3 modes before acting**:
-
-### Quick Mode — 🟡 @developer direct
-
-For point changes in ≤ 2 files without new domain entity.
-
-```
-"fix typo in UserController"
-"remove console.log from src/"
-"adjust timeout from 30s to 60s"
-    ↓
-🟡 @developer → 🔴 @tester → 🟣 @reviewer → Done
-```
-
-### Task Mode — light specs + Code
-
-For new interface contract, clear scope, without architectural uncertainty.
-
-```
-"add endpoint POST /users/:id/roles"
-"integrate SendGrid in registration flow"
-    ↓
-changes/00X/ + 🟢 @architect specs.md
-    ↓
-🟡 @developer → 🔴 @tester → 🟣 @reviewer → Done
-```
-
-### Feature Mode — Full Spec Flow
-
-For new domain entity, technical uncertainty, broad architectural impact.
-
-```
-"implement OAuth2 authentication with Google"
-"create billing module with Stripe"
-    ↓
-Phase 1: 🟢 @architect Research (PRD + design + specs)
-Phase 2: 🔵 @leader creates tasks.md
-Phase 3: 🟡 @developer → 🔴 @tester → 🟣 @reviewer (loops ≤ 3x)
-Phase 4: 🟢 @architect Docs Sync (arc42, c4, adr, bdd)
-```
-
-### Feedback loop (Phase 3)
-
-```
-🟡 @developer → 🔴 @tester ──(failed ≤3x)──→ 🟡 @developer
-                      │
-                   (passed)
-                      ↓
-              🟣 @reviewer ──(rejected ≤3x)──→ 🟡 @developer
-                      │                                │
-                  (approved)            (attempts-developer ≥ 3)
-                      ↓                                ↓
-              🔵 @leader finalizes          🔵 @leader → Re-Spec
-             (Docs if Feature)         (🟢 @architect revises specs.md)
-```
-
----
-
-## Agents
-
-| Agent        | Model  | Role                                                                         |
-| ------------ | ------ | ---------------------------------------------------------------------------- |
-| `@leader`    | opus   | Classifies Quick/Task/Feature, orchestrates phases, manages re-spec          |
-| `@architect` | opus   | Full Research (PRD+design+specs) or light specs — maintains docs/            |
-| `@developer` | sonnet | Implements via specs.md or direct request (Quick)                            |
-| `@tester`    | sonnet | Generates and runs tests — `bun test --coverage` — coverage ≥85% domain      |
-| `@reviewer`  | opus   | CDD/ICP + 70 rules + security (ApplicationSecurityMCP) — annotates via codetags |
-
-### Anti-goals (what each agent does NOT do)
-
-| Agent        | Does not                                                                     |
-| ------------ | ---------------------------------------------------------------------------- |
-| `@leader`    | Write code, create tests, do review, create architectural docs              |
-| `@architect` | Implement code, run tests, do functional review                              |
-| `@developer` | Decide architecture/patterns, create specs, do CDD/ICP review                |
-| `@tester`    | Change production code, do architectural review                              |
-| `@reviewer`  | Implement code, create tests, sync docs                                      |
-
----
-
-## Commands
-
-Used directly in Claude Code with `/command-name`:
-
-| Command                             | When to use                                                                  |
-| ----------------------------------- | ---------------------------------------------------------------------------- |
-| `/start [feature-name]`             | Initializes `changes/00X_name/` with PRD, design, specs and tasks templates  |
-| `/status`                           | Dashboard: features in progress, completed tasks, current phase, counters    |
-| `/audit [branch\|pr <n>\|src/path]` | Full code review via @reviewer — posts result directly to PRs                |
-| `/docs [src/path]`                  | Syncs `docs/` (arc42, c4, adr, bdd) — works without Spec Flow               |
-| `/ship`                             | Prepares Conventional Commits commit and pushes to remote                    |
-| `/sync`                             | Updates branch with latest changes from remote repository                    |
-
-### Usage example
-
-```bash
-# Start a new feature
-/start user-authentication
-
-# See what's in progress
-/status
-
-# Commit and publish
-/ship
-```
-
----
-
-## Automatic hooks
-
-The 3 hooks form an automatic chain — execute without any manual invocation:
-
-```
-User types something
-    ↓
-[1] prompt.sh ← UserPromptSubmit
-    Detects if dev task → injects mode hint for @leader
-
-Claude responds, writes/edits files
-    ↓
-[2] lint.sh ← PostToolUse (Write|Edit|NotebookEdit)
-    Auto-formats with biome entire .ts/.tsx/.js/.jsx/.json file
-
-Claude finishes responding
-    ↓
-[3] loop.sh ← Stop
-    Checks tasks.md — blocks if pending tasks exist ( - [ ] )
-```
-
-### Details of each hook
-
-**`prompt.sh` — Mode routing**
-
-When user types a request with action verb (`implement`, `create`, `fix`, etc.), the hook injects context into system prompt guiding `@leader` to classify the request before acting:
-
-```bash
-# Triggers routing
-"create endpoint POST /users"    → hint: Task Mode
-"implement OAuth2"               → hint: Feature Mode
-"fix typo in controller"         → hint: Quick Mode
-
-# Does NOT trigger (conceptual questions are ignored)
-"what is SOLID principle?"
-"how does @reviewer work?"
-```
-
-**`lint.sh` — Automatic formatting**
-
-Executed after any `Write` or `Edit` on code files. Runs `bunx biome check --write` on newly modified file. Covered extensions: `.ts` `.tsx` `.js` `.jsx` `.json`.
-
-**`loop.sh` — Workflow guardian**
-
-Executes at end of each Claude response. Searches for `changes/*/tasks.md` and checks if unchecked checkboxes exist (`- [ ]`). If found, blocks finalization and returns to `@leader` to continue.
-
-```bash
-# Escape hatch — use if workflow gets stuck for any reason:
-touch .claude/.loop-skip
-
-# Remove after resolving:
-rm .claude/.loop-skip
-```
-
-| Event                                       | Hook        | File                      |
-| ------------------------------------------- | ----------- | ------------------------- |
-| `PostToolUse` — `Write\|Edit\|NotebookEdit` | `lint.sh`   | `.claude/hooks/lint.sh`   |
-| `Stop`                                      | `loop.sh`   | `.claude/hooks/loop.sh`   |
-| `UserPromptSubmit`                          | `prompt.sh` | `.claude/hooks/prompt.sh` |
-
----
-
-## Rules (70 rules)
-
-Architectural rules organized by category. Each rule has: definition, objective criteria, exceptions, how to detect (manual + automatic) and bidirectional cross-references.
-
-| Category            | IDs     | Source                       |
-| ------------------- | ------- | ---------------------------- |
-| Object Calisthenics | 001–009 | Jeff Bay                     |
-| SOLID               | 010–014 | Uncle Bob                    |
-| Package Principles  | 015–020 | Uncle Bob                    |
-| Clean Code          | 021–039 | Clean Code + general practices |
-| Twelve-Factor       | 040–051 | 12factor.net                 |
-| Anti-Patterns       | 052–070 | Fowler + Brown               |
-
-**Severity:** 🔴 blocks PR · 🟠 requires justification · 🟡 improvement expected
-
-**Next available ID:** `071`
-
-### How to create a new rule
-
-```markdown
-# [Rule Title]
-
-**ID**: [CATEGORY-NNN or AP-NN-NNN]
-**Severity**: [🔴 Critical | 🟠 High | 🟡 Medium]
-**Category**: [Structural | Behavioral | Creational | Infrastructure]
-
----
-
-## What it is
-
-## Why it matters
-
-## Objective Criteria ← checkboxes
-
-## Allowed Exceptions
-
-## How to Detect ← Manual and Automatic
-
-## Related to ← typed links (reinforces · complements · replaces · depends)
-
----
-
-**Created on**: YYYY-MM-DD **Version**: 1.0
-```
-
----
-
-## Skills (35 skills)
-
-Skills are knowledge modules that agents load on demand. They follow the **Progressive Disclosure** principle: `SKILL.md` is the lightweight index; details are in `references/`.
-
-| Group               | Skills                                                                                                 |
-| ------------------- | ------------------------------------------------------------------------------------------------------ |
-| Class structure     | anatomy, constructor, bracket                                                                          |
-| Members             | getter, setter, method                                                                                 |
-| Behavior            | event, dataflow, render, state                                                                         |
-| Data                | enum, token, alphabetical                                                                              |
-| Organization        | colocation, revelation, story                                                                          |
-| Composition         | mixin, complexity                                                                                      |
-| Performance         | big-o                                                                                                  |
-| Annotation          | **codetags** (16 documented tags)                                                                      |
-| OOP Principles      | **object-calisthenics** (9 rules), **solid** (5 principles), **package-principles** (6 principles)     |
-| Code Practices      | **clean-code** (rules 021–039)                                                                         |
-| Methodology         | **cdd** (Cognitive-Driven Development — ICP = CC_base + Nesting + Responsibilities + Coupling)         |
-| Infrastructure      | **twelve-factor** (12 factors)                                                                         |
-| Design Patterns     | **gof** (23 patterns), **poeaa** (51 patterns)                                                         |
-| Documentation       | **arc42** (12 sections), **c4model** (4 levels), **adr**, **bdd**                                      |
-| Quality             | **software-quality** (McCall Model — 12 factors)                                                       |
-| Frontend            | **react** (patterns + 2026 rendering strategies)                                                       |
-| Anti-Patterns       | **anti-patterns** (26 cataloged patterns)                                                              |
-
-### Skill template
-
-```yaml
----
-name: skill-name
-description: "[What it is]. Use when [condition] — [specific triggers]."
-model: haiku|sonnet
-allowed-tools: Read
-metadata:
-  author: deMGoncalves
-  version: "1.0.0"
----
-```
-
-Body: `When to Use` → `Content` → `## Examples` (❌/✅) → `Prohibitions` → `Rationale`
-
----
-
-## Dependency graph
-
-`.claude/GRAPH.md` contains 4 Mermaid diagrams documenting how everything connects:
-
-1. **Rule layers** — OC → SOLID → Package → Clean Code → 12-Factor + Anti-Patterns
-2. **Skills → Rules** — which skill covers which rules
-3. **Skills → Skills** — interdependencies between skills
-4. **Agents → Skills → Rules** — which agent uses what
-
----
-
-## ICP — Integrated Cognitive Persistence
-
-`@reviewer` measures cognitive load of each method using ICP:
-
-```
-ICP = CC_base + Nesting + Responsibilities + Coupling
-```
-
-| ICP  | Status         | Action                              |
-| ---- | -------------- | ----------------------------------- |
-| ≤ 3  | 🟢 Excellent   | Maintain                            |
-| 4–6  | 🟡 Acceptable  | Consider refactoring                |
-| 7–10 | 🟠 Concerning  | Refactor before new feature         |
-| > 10 | 🔴 Critical    | Mandatory refactoring               |
-
-Objective limits that define approved/rejected ICP:
-
-| Metric                               | Limit  | Rule |
-| ------------------------------------ | ------ | ---- |
-| Cyclomatic Complexity per method     | ≤ 5    | 022  |
-| Lines per class                      | ≤ 50   | 007  |
-| Lines per method                     | ≤ 15   | 055  |
-| Parameters per function              | ≤ 3    | 033  |
-| Chaining per line                    | ≤ 1    | 005  |
-| Indentation level                    | ≤ 1    | 001  |
-
----
-
-## Codetags
-
-`@reviewer` annotates violations directly in code with educational tone — explaining why and the path to improve:
-
-```typescript
-// FIXME: This class is taking on too many responsibilities — handles both
-// authentication and database access. This makes it hard to test each part
-// independently. Separating into Repository resolves this.
-
-// TODO: With 5 parameters, it's hard to know what each represents.
-// Grouping into UserCreateInput makes the call more expressive and makes
-// it easier to add fields in the future.
-
-// XXX: The nested if/else works, but reading is tiring.
-// Early returns (guard clauses) linearize the flow.
-
-// FIXME: The query concatenates user input directly, opening space
-// for SQL Injection. Prepared statements separate code from data.
-```
-
-| Tag             | Severity | Blocks PR?          |
-| --------------- | -------- | ------------------- |
-| `FIXME`         | Critical | Yes                 |
-| `TODO`          | High     | No — should fix     |
-| `XXX`           | Medium   | No — improvement    |
-| `SECURITY`      | Critical | Yes                 |
-| `HACK`          | High     | No                  |
-| `OPTIMIZE`      | Medium   | No                  |
-| `NOTE` / `INFO` | Low      | No                  |
-
----
-
-## Technologies
-
-- **Runtime:** Bun
-- **Linter/Formatter:** Biome
-- **Language:** TypeScript (framework-agnostic)
-- **Tests:** `bun test --coverage` (fallback: Vitest)
-- **AI:** Claude Code CLI with opus/sonnet models
-
----
-
-## MCPs
-
-The `.mcp.json` file configures MCP servers available to Claude Code in this project.
-
-### Active MCPs
-
-| MCP            | Package                               | Token          | What it's for                                                                |
-| -------------- | ------------------------------------- | -------------- | ---------------------------------------------------------------------------- |
-| **cloudflare** | `mcp-remote` → cloudflare docs        | No             | Documentation for Workers, Pages, KV, R2, D1                                 |
-| **context7**   | `@upstash/context7-mcp`               | Included       | Semantic lookup of lib docs (React, Tailwind, Radix, etc.)                   |
-| **fetch**      | `@modelcontextprotocol/server-fetch`  | No             | Fetches any URL and converts to Markdown — doc research                      |
-| **figma**      | `figma-developer-mcp`                 | `FIGMA_TOKEN`  | Reads variables, components and layout from Figma files                      |
-| **github**     | `@modelcontextprotocol/server-github` | `GITHUB_TOKEN` | Manages PRs, issues, branches — integrates with `/audit`                     |
-| **memory**     | `@modelcontextprotocol/server-memory` | No             | Persistent knowledge graph — stores architectural decisions between sessions |
-| **puppeteer**  | `puppeteer-mcp-server`                | No             | Browser automation — screenshots, visual tests                               |
-| **storybook**  | `mcp-remote` → localhost:6006         | No             | Access to local Storybook components                                         |
-
-### How each MCP is used
-
-**`fetch`** — Documentation and reference search
-
-Fetches any URL and converts to Markdown. Useful for consulting React, Tailwind, Radix, shadcn/ui, MDN docs directly in session.
-
-**`figma`** — Design system integration
-
-Reads design variables (colors, spacing, typography), inspects components and extracts layout to generate code faithful to design. Requires Figma desktop app open.
-
-```bash
-# Configure token:
-# figma.com → Settings → Security → Personal access tokens
-# Replace SEU_FIGMA_TOKEN_AQUI in .mcp.json
-```
-
-**`github`** — PR and issue automation
-
-Creates PRs, comments on issues, lists branch changes, checks CI/CD status. Integrates with `/audit` command to post reviews directly to PRs.
-
-```bash
-# Configure token:
-# github.com → Settings → Developer settings → Personal access tokens → Classic
-# Scopes: repo, workflow
-# Replace SEU_GITHUB_TOKEN_AQUI in .mcp.json
-```
-
-**`memory`** — Persistent context between sessions
-
-Unlike `context7` (which searches external docs), `memory` stores project-specific knowledge: patterns discovered in codebase, architectural decisions, adopted conventions.
-
-**`puppeteer`** — Browser automation
-
-Screenshots of components in different viewports, visual tests, UI state capture. Used in conjunction with `/audit` for visual analysis.
-
-**`storybook`** — Local components
-
-Queries existing stories and generates component documentation. Requires `bun run storybook` running at `http://localhost:6006`.
-
----
-
-## Contributing
-
-Contributions are welcome! You can:
-
-- **Open an issue** to report bugs or propose new rules/skills
-- **Open a PR** following [CONTRIBUTING.md](CONTRIBUTING.md)
-- **Start a discussion** to align before implementing something bigger
-
-Read the [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
-
----
-
-## License
+## Licença
 
 MIT © [Cleber de Moraes Goncalves](https://github.com/deMGoncalves)
 
-See [LICENSE](LICENSE) file for details.
-
----
-
-_oh my claude — Personal AI-assisted development workflow and style._
+Veja [LICENSE](LICENSE) para detalhes.
