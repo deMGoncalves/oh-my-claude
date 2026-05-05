@@ -1,48 +1,48 @@
 # Conformidade com o Princípio de Substituição de Liskov (LSP)
 
-**ID**: COMPORTAMENTAL-012
-**Severidade**: 🔴 Crítica
-**Categoria**: Comportamental
+**ID**: BEHAVIORAL-012
+**Severity**: 🔴 Critical
+**Category**: Behavioral
 
 ---
 
-## O que é
+## What it is
 
 Exige que as classes derivadas (subclasses) sejam substituíveis pelas suas classes base (superclasses) sem alterar o comportamento esperado do programa.
 
-## Por que importa
+## Why it matters
 
 A violação do LSP quebra a coesão do sistema de tipos e o contrato de herança, forçando os clientes a verificar o tipo do objeto, o que leva à violação do OCP e introduz bugs graves em tempo de execução.
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] Subclasses não devem lançar exceções que não são lançadas pela classe base (comportamento).
 - [ ] Subclasses não devem enfraquecer pré-condições ou fortalecer pós-condições da classe base (assinatura/contrato).
 - [ ] É proibido o uso de verificações de tipo (`instanceof` ou *type guards* complexos) em código cliente que utiliza a interface da classe base.
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - **Frameworks de Teste**: Uso de *mocks* e *spies* em testes unitários para simular comportamentos de substituição de forma controlada.
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 
 Busca por `if (objeto instanceof Subclasse)` ou uso de um método da classe base que lança `UnsupportedOperationException`.
 
-### Automático
+### Automatic
 
 TypeScript/Compilador: Verificação de tipagem rígida de parâmetros e retornos de métodos sobrescritos.
 
-## Relacionada com
+## Related to
 
-- [011 - Princípio Aberto/Fechado](011_principio-aberto-fechado.md): reforça
-- [009 - Diga, Não Pergunte](009_diga-nao-pergunte.md): reforça
-- [003 - Encapsulamento de Primitivos](003_encapsulamento-primitivos.md): complementa
-- [013 - Princípio de Segregação de Interface](013_principio-segregacao-interface.md): reforça
-- [036 - Restrição de Funções com Efeitos Colaterais](036_restricao-funcoes-efeitos-colaterais.md): reforça
+- [011 - Open/Closed Principle (OCP)](011_open-closed-principle.md): reinforces
+- [009 - Tell, Don't Ask](009_tell-dont-ask.md): reinforces
+- [003 - Primitive Domain Encapsulation](003_primitive-encapsulation.md): complements
+- [013 - Interface Segregation Principle (ISP)](013_principio-segregacao-interface.md): reinforces
+- [036 - Side-Effect Function Restrictions](036_side-effect-restrictions.md): reinforces
 
 ---
 
-**Criada em**: 2025-10-04
-**Versão**: 1.0
+**Created on**: 2025-10-04
+**Version**: 1.0

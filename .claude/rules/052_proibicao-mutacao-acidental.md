@@ -1,23 +1,23 @@
 # Proibição de Mutação Acidental
 
 **ID**: AP-07-052
-**Severidade**: 🟠 Alta
-**Categoria**: Comportamental
+**Severity**: 🟠 High
+**Category**: Behavioral
 
 ---
 
-## O que é
+## What it is
 
 Mutação acidental ocorre quando objetos ou estruturas de dados são modificados inadvertidamente, geralmente através de passagem por referência ou efeitos colaterais não documentados. O estado original é alterado sem intenção explícita do desenvolvedor, causando bugs difíceis de rastrear.
 
-## Por que importa
+## Why it matters
 
 - Bugs imprevisíveis: estado mutado silenciosamente falha testes e produz comportamento incorreto
 - Rastreamento difícil: o local onde a mutação ocorre pode estar distante de onde o erro é detectado
 - Comportamento não-idempotente: mesmo código pode ter resultados diferentes dependendo do estado anterior
 - Baixa confiança no código: desenvolvedores hesitam em reutilizar funções devido a efeitos colaterais ocultos
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] Funções modificam parâmetros recebidos sem documentação explícita
 - [ ] Objetos são retornados de funções após modificação de propriedades
@@ -26,14 +26,14 @@ Mutação acidental ocorre quando objetos ou estruturas de dados são modificado
 - [ ] Variáveis locais têm seu valor reatribuído sem razão clara
 - [ ] Mudanças em objetos se propagam para outros componentes não relacionados
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - Métodos explicitamente identificados como mutadores (ex.: `save()`, `update()`)
 - Objetos temporários construídos e usados exclusivamente dentro do mesmo escopo
 - Implementações de mutadores obrigatórias em interfaces/frameworks que não suportam imutabilidade
 - Código legado com mutação documentada e testes que garantem o comportamento esperado
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 - Procurar por `push()`, `pop()`, `splice()`, `unshift()` em arrays transitórios
@@ -41,22 +41,22 @@ Mutação acidental ocorre quando objetos ou estruturas de dados são modificado
 - Buscar reatribuições de parâmetros
 - Verificar objetos compartilhados entre múltiplos módulos
 
-### Automático
+### Automatic
 - Linters (ESLint): `no-param-reassign`, `no-const-assign`
 - Rigor de tipos: usar `Readonly<T>`, `as const`, `readonly`
 - Bibliotecas: Immer, Immutable.js para detectar mutações
 - Testes de snapshot: capturar estado antes/depois para detectar mudanças inesperadas
 
-## Relacionada com
+## Related to
 
-- [029 - Imutabilidade de Objetos (Freeze)](029_imutabilidade-objetos-freeze.md): reforça
-- [036 - Restrição de Funções com Efeitos Colaterais](036_restricao-funcoes-efeitos-colaterais.md): reforça
-- [009 - Diga, Não Pergunte](009_diga-nao-pergunte.md): complementa
-- [018 - Princípio de Dependências Acíclicas](018_principio-dependencias-aciclicas.md): complementa
-- [039 - Regra do Escoteiro (Refatoração Contínua)](039_regra-escoteiro-refatoracao-continua.md): reforça
-- [070 - Proibição de Estado Mutável Compartilhado](070_proibicao-estado-mutavel-compartilhado.md): complementa
+- [029 - Imutabilidade de Objetos (Freeze)](029_object-immutability-freeze.md): reinforces
+- [036 - Side-Effect Function Restrictions](036_side-effect-restrictions.md): reinforces
+- [009 - Tell, Don't Ask](009_tell-dont-ask.md): complements
+- [018 - Acyclic Dependencies Principle (ADP)](018_acyclic-dependencies-principle.md): complements
+- [039 - Boy Scout Rule (Continuous Refactoring)](039_boy-scout-rule-continuous-refactoring.md): reinforces
+- [070 - Prohibition of Shared Mutable State](070_prohibition-shared-mutable-state.md): complements
 
 ---
 
-**Criada em**: 2026-03-28
-**Versão**: 1.0
+**Created on**: 2026-03-28
+**Version**: 1.0

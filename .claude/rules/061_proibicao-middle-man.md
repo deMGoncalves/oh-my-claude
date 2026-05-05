@@ -1,16 +1,16 @@
 # Proibição de Middle Man
 
 **ID**: AP-19-061
-**Severidade**: 🟡 Média
-**Categoria**: Estrutural
+**Severity**: 🟡 Medium
+**Category**: Structural
 
 ---
 
-## O que é
+## What it is
 
 Middle Man ocorre quando uma classe delega a maioria de seus métodos para outra classe sem adicionar seu próprio valor. Se 50%+ dos métodos de uma classe apenas repassam chamadas (linha única `return this.obj.method(args)`), é um Middle Man inútil. É o inverso de Feature Envy: aqui, o middle man delega tudo; lá, o método faz o trabalho de outro objeto.
 
-## Por que importa
+## Why it matters
 
 - Complexidade desnecessária: mais arquivos, mais imports, mais nomes para aprender
 - Manutenção duplicada: cada mudança na interface real requer mudança no Middle Man
@@ -18,7 +18,7 @@ Middle Man ocorre quando uma classe delega a maioria de seus métodos para outra
 - Acoplamento indireto: se remover objeto real, middle man perde existência sem valor
 - Indica over-engineering ou refatoração incompleta: classe foi útil uma vez mas perdeu propósito
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] 50%+ dos métodos da classe são delegates de uma linha sem adicionar valor
 - [ ] Classe existe apenas para esconder outro objeto exposto diretamente inicialmente
@@ -26,14 +26,14 @@ Middle Man ocorre quando uma classe delega a maioria de seus métodos para outra
 - [ ] Stack trace sempre mostra mesmos nomes de método em duas camadas consecutivas
 - [ ] Middle Man não é usado/testado isoladamente — sempre precisa do objeto real funcionando
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - Padrões de Facade que simplificam interface complexa (adicionando valor via simplificação)
 - Proxies com preocupações transversais (logging, caching, autenticação)
 - Adapters que transformam interfaces de formatos diferentes
 - DTOs/ViewModels que transformam objetos de entidade para camada de apresentação
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 - Ler classe: identificar métodos que apenas fazem `return this.obj.method(args)` sem modificação
@@ -41,20 +41,20 @@ Middle Man ocorre quando uma classe delega a maioria de seus métodos para outra
 - Verificar testes: testes do middle man apenas testam que ele repassa corretamente, não lógica própria
 - Analisar chamadas: sempre navega pelo middle man para chegar ao objeto real
 
-### Automático
+### Automatic
 - Análise estática: detectar classes com alta taxa de métodos que apenas delegam (vs implementam lógica)
 - Complexidade de código: detectar classes onde complexidade ciclomática por método ≈ 1 (código mais delegando)
 - Análise de acoplamento: detectar classes que apenas existem para encapsular outras sem adicionar comportamento
 
-## Relacionada com
+## Related to
 
-- [022 - Priorização da Simplicidade e Clareza](022_priorizacao-simplicidade-clareza.md): reforça
-- [057 - Proibição de Feature Envy](057_proibicao-feature-envy.md): complementa
-- [008 - Proibição de Getters e Setters](008_proibicao-getters-setters.md): reforça
-- [011 - Princípio Aberto/Fechado](011_principio-aberto-fechado.md): complementa
-- [065 - Proibição de Poltergeists](065_proibicao-poltergeists.md): complementa
+- [022 - Simplicity and Clarity (KISS)](022_simplicity-and-clarity.md): reinforces
+- [057 - Prohibition of Feature Envy](057_prohibition-feature-envy.md): complements
+- [008 - Prohibition of Getters/Setters](008_prohibition-getters-setters.md): reinforces
+- [011 - Open/Closed Principle (OCP)](011_open-closed-principle.md): complements
+- [065 - Prohibition of Poltergeists](065_prohibition-poltergeists.md): complements
 
 ---
 
-**Criada em**: 2026-03-28
-**Versão**: 1.0
+**Created on**: 2026-03-28
+**Version**: 1.0

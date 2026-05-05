@@ -1,48 +1,48 @@
 # Qualidade no Tratamento de Erros: Use Exceções de Domínio
 
-**ID**: COMPORTAMENTAL-027
-**Severidade**: 🟠 Alta
-**Categoria**: Comportamental
+**ID**: BEHAVIORAL-027
+**Severity**: 🟠 High
+**Category**: Behavioral
 
 ---
 
-## O que é
+## What it is
 
 Exige que a lógica de negócio use **exceções (erros)** para relatar problemas, em vez de códigos de retorno ou valores nulos. Exceções devem ser específicas do domínio (ex: `UsuarioNaoEncontradoError`).
 
-## Por que importa
+## Why it matters
 
 Códigos de erro ou valores nulos (ex: `return null`) forçam o cliente a verificar o retorno em cada chamada, espalhando lógica de erro. Exceções garantem que o erro não seja ignorado e fornecem *stack trace*.
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] Métodos de negócio (Services, Use Cases) devem retornar tipos válidos ou lançar exceção, **proibindo** `return null` ou `return undefined`.
 - [ ] É proibido o uso de `catch` vazio ou que apenas loga o erro e continua o fluxo (deve relançar ou tratar).
 - [ ] Exceções lançadas devem ser customizadas para o domínio (ex: estender uma classe `BaseDomainError`).
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - **Funções de Parse/Utilidade**: Funções de baixo nível que podem retornar `null` ou `undefined` para indicar falha na leitura ou conversão.
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 
 Busca por `return null`, `return -1`, ou `catch (e) {}` no código de negócio.
 
-### Automático
+### Automatic
 
 ESLint: `no-return-null`, `no-empty-catch`.
 
-## Relacionada com
+## Related to
 
-- [002 - Proibição da Cláusula ELSE](002_proibicao-clausula-else.md): complementa
-- [022 - Priorização da Simplicidade e Clareza](022_priorizacao-simplicidade-clareza.md): reforça
-- [028 - Tratamento de Exceção Assíncrona](028_tratamento-excecao-assincrona.md): reforça
-- [036 - Restrição de Funções com Efeitos Colaterais](036_restricao-funcoes-efeitos-colaterais.md): reforça
-- [050 - Logs como Fluxo de Eventos](050_logs-fluxo-eventos.md): complementa
+- [002 - Prohibition of ELSE Clause](002_prohibition-else-clause.md): complements
+- [022 - Simplicity and Clarity (KISS)](022_simplicity-and-clarity.md): reinforces
+- [028 - Async Exception Handling](028_async-exception-handling.md): reinforces
+- [036 - Side-Effect Function Restrictions](036_side-effect-restrictions.md): reinforces
+- [050 - Logs as Event Streams](050_logs-as-event-streams.md): complements
 
 ---
 
-**Criada em**: 2025-10-08
-**Versão**: 1.0
+**Created on**: 2025-10-08
+**Version**: 1.0

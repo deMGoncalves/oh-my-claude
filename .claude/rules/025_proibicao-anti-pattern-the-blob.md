@@ -1,50 +1,50 @@
 # Proibição do Anti-Pattern The Blob (God Object)
 
-**ID**: ESTRUTURAL-025
-**Severidade**: 🔴 Crítica
-**Categoria**: Estrutural
+**ID**: STRUCTURAL-025
+**Severity**: 🔴 Critical
+**Category**: Structural
 
 ---
 
-## O que é
+## What it is
 
 Proíbe a criação de classes que concentram a maior parte da lógica e dados do sistema, resultando em um **Objeto Deus** (The Blob) que outras classes pequenas apenas orbitam e acessam.
 
 *(O anti-pattern Large Class é o estágio inicial de um Blob: Large Class viola SRP por ter responsabilidades demais; The Blob adiciona o domínio de dados centralizados que outras classes apenas orbitam.)*
 
-## Por que importa
+## Why it matters
 
 Viola o Princípio da Responsabilidade Única (SRP) de forma severa, resultando na **pior forma de acoplamento e baixa coesão**. Torna a classe impossível de testar e o sistema extremamente frágil a mudanças.
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] Uma classe não deve conter mais de **10** métodos públicos (excluindo *getters* e *setters* permitidos).
 - [ ] O número de dependências (imports) de classes concretas em uma única classe não deve exceder **5**.
-- [ ] Se a classe violar os limites de `ESTRUTURAL-007` (50 linhas) e `COMPORTAMENTAL-010` (7 métodos) deve ser classificada como um *Blob* e refatorada.
+- [ ] Se a classe violar os limites de `STRUCTURAL-007` (50 linhas) e `BEHAVIORAL-010` (7 métodos) deve ser classificada como um *Blob* e refatorada.
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - **Encapsulamento de Legado**: Grandes classes podem ser aceitas ao encapsular um sistema legado não-OO para acessá-lo a partir do sistema OO.
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 
 Identificar classes que estão em constante modificação por vários *feature requests* diferentes.
 
-### Automático
+### Automatic
 
 SonarQube: LCOM (Lack of Cohesion in Methods) e WMC (Weighted Methods Per Class) muito altos.
 
-## Relacionada com
+## Related to
 
-- [010 - Princípio da Responsabilidade Única](010_principio-responsabilidade-unica.md): substitui
-- [007 - Limite Máximo de Linhas por Classe](007_limite-maximo-linhas-classe.md): reforça
-- [039 - Regra do Escoteiro](039_regra-escoteiro-refatoracao-continua.md): complementa
-- [056 - Proibição de Código Zombie (Lava Flow)](056_proibicao-codigo-zombie-lava-flow.md): reforça
-- [054 - Proibição de Mudança Divergente](054_proibicao-mudanca-divergente.md): reforça
+- [010 - Single Responsibility Principle (SRP)](010_single-responsibility-principle.md): supersedes
+- [007 - Maximum Lines per Class File](007_max-lines-per-class.md): reinforces
+- [039 - Boy Scout Rule (Continuous Refactoring)](039_boy-scout-rule-continuous-refactoring.md): complements
+- [056 - Prohibition of Zombie Code (Lava Flow)](056_prohibition-zombie-code-lava-flow.md): reinforces
+- [054 - Prohibition of Divergent Change](054_prohibition-divergent-change.md): reinforces
 
 ---
 
-**Criada em**: 2025-10-08
-**Versão**: 1.0
+**Created on**: 2025-10-08
+**Version**: 1.0

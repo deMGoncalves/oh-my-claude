@@ -12,50 +12,50 @@ paths:
 
 # Configurações via Variáveis de Ambiente (Config)
 
-**ID**: INFRAESTRUTURA-042
-**Severidade**: 🔴 Crítica
-**Categoria**: Infraestrutura
+**ID**: INFRASTRUCTURE-042
+**Severity**: 🔴 Critical
+**Category**: Infrastructure
 
 ---
 
-## O que é
+## What it is
 
 Todas as configurações que variam entre ambientes (*deploy*) devem ser armazenadas em **variáveis de ambiente**, não em arquivos de configuração versionados ou hardcoded no código. Isso inclui credenciais, URLs de serviços, e feature flags.
 
-## Por que importa
+## Why it matters
 
 Configurações hardcoded ou em arquivos versionados criam risco de vazamento de credenciais, impedem deploys flexíveis e violam a separação entre código e configuração. Variáveis de ambiente permitem que o mesmo código rode em qualquer ambiente.
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] Credenciais (API keys, senhas, tokens) devem ser acessadas **exclusivamente** via `process.env` ou equivalente.
 - [ ] É proibido versionar arquivos `.env` com valores reais de produção ou staging.
 - [ ] O código deve funcionar com **zero** arquivos de configuração específicos de ambiente no repositório.
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - **Configurações de Desenvolvimento**: Arquivo `.env.example` com valores de exemplo para documentação.
 - **Configurações Estruturais**: Arquivos de configuração de build (`tsconfig.json`, `biome.json`) que não variam entre deploys.
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 
 Busca por strings de conexão, URLs de API, ou credenciais hardcoded no código-fonte.
 
-### Automático
+### Automatic
 
 ESLint: Regras customizadas para detectar strings que parecem credenciais. Git-secrets ou Gitleaks para varredura de segredos.
 
-## Relacionada com
+## Related to
 
-- [030 - Proibição de Funções Inseguras](030_proibicao-funcoes-inseguras.md): reforça
-- [024 - Proibição de Constantes Mágicas](024_proibicao-constantes-magicas.md): reforça
-- [041 - Declaração Explícita de Dependências](041_declaracao-explicita-dependencias.md): complementa
-- [043 - Serviços de Apoio como Recursos](043_servicos-apoio-recursos.md): complementa
-- [049 - Paridade Dev/Prod](049_paridade-dev-prod.md): reforça
+- [030 - Prohibition of Unsafe Functions](030_prohibition-unsafe-functions.md): reinforces
+- [024 - Prohibition of Magic Constants](024_prohibition-magic-constants.md): reinforces
+- [041 - Explicit Dependency Declaration](041_explicit-dependency-declaration.md): complements
+- [043 - Backing Services as Resources](043_backing-services-as-resources.md): complements
+- [049 - Dev/Prod Parity](049_dev-prod-parity.md): reinforces
 
 ---
 
-**Criada em**: 2025-01-10
-**Versão**: 1.0
+**Created on**: 2025-01-10
+**Version**: 1.0

@@ -1,48 +1,48 @@
 # Aplicação do Princípio de Segregação de Interfaces (ISP)
 
-**ID**: ESTRUTURAL-013
-**Severidade**: 🟠 Alta
-**Categoria**: Estrutural
+**ID**: STRUCTURAL-013
+**Severity**: 🟠 High
+**Category**: Structural
 
 ---
 
-## O que é
+## What it is
 
 Exige que clientes não sejam forçados a depender de interfaces que não utilizam. Múltiplas interfaces específicas para clientes são preferíveis a uma única interface geral.
 
-## Por que importa
+## Why it matters
 
 Violações do ISP causam classes anêmicas (com métodos vazios ou lançando exceções) e aumentam o acoplamento desnecessário, pois clientes são forçados a depender de código que nunca será executado.
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] Interfaces devem ter, no máximo, **5** métodos públicos.
 - [ ] Classes que implementam interfaces não devem deixar métodos vazios ou lançar exceções de "não suportado".
 - [ ] Se uma interface é utilizada por mais de **3** clientes diferentes, ela deve ser revisada para segregação.
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - **Interfaces de Baixo Nível**: Interfaces de *Frameworks* de terceiros que exigem um alto número de métodos (ex: `HttpRequestHandler`).
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 
 Busca por interfaces com 8 ou mais métodos, ou classes implementadoras que deixam métodos sem funcionalidade.
 
-### Automático
+### Automatic
 
 SonarQube: Alta complexidade acoplada devido a métodos não utilizados.
 
-## Relacionada com
+## Related to
 
-- [010 - Princípio da Responsabilidade Única](010_principio-responsabilidade-unica.md): reforça
-- [011 - Princípio Aberto/Fechado](011_principio-aberto-fechado.md): complementa
-- [012 - Princípio de Substituição de Liskov](012_principio-substituicao-liskov.md): reforça
-- [017 - Princípio do Reuso Comum](017_principio-reuso-comum.md): complementa
-- [037 - Proibição de Argumentos Sinalizadores](037_proibicao-argumentos-sinalizadores.md): reforça
+- [010 - Single Responsibility Principle (SRP)](010_single-responsibility-principle.md): reinforces
+- [011 - Open/Closed Principle (OCP)](011_open-closed-principle.md): complements
+- [012 - Liskov Substitution Principle (LSP)](012_liskov-substitution-principle.md): reinforces
+- [017 - Common Reuse Principle (CRP)](017_common-reuse-principle.md): complements
+- [037 - Prohibition of Flag Arguments](037_prohibition-flag-arguments.md): reinforces
 
 ---
 
-**Criada em**: 2025-10-04
-**Versão**: 1.0
+**Created on**: 2025-10-04
+**Version**: 1.0

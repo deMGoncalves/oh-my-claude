@@ -1,55 +1,55 @@
 # Encapsulamento de Primitivos de Domínio (Value Objects)
 
-**ID**: CRIACIONAL-003
-**Severidade**: 🔴 Crítica
-**Categoria**: Criacional
+**ID**: CREATIONAL-003
+**Severity**: 🔴 Critical
+**Category**: Creational
 
 ---
 
-## O que é
+## What it is
 
 Exige que tipos primitivos (como `number`, `boolean`) e a classe `String` que representam conceitos de domínio (ex: *Email*, *CPF*, *Moeda*) sejam encapsulados em seus próprios *Value Objects* imutáveis.
 
 *(Previne o anti-pattern Primitive Obsession: uso de `string`, `number`, `boolean` para representar conceitos de domínio que deveriam ser objetos com comportamento próprio.)*
 
-## Por que importa
+## Why it matters
 
 Garante que a validação, formatação e as regras de negócio intrínsecas ao dado sejam definidas e verificadas uma única vez no construtor, evitando inconsistências e bugs graves por passagem de dados inválidos entre métodos.
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] Parâmetros de entrada e valores de retorno de métodos públicos não devem ser tipos primitivos/String se representarem um conceito de domínio específico.
 - [ ] Todos os *Value Objects* devem ser imutáveis.
 - [ ] A lógica de validação do formato e regras de negócio do valor deve estar contida e ser executada no construtor do *Value Object*.
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - **Primitivos Genéricos**: Tipos primitivos usados para contagem (`i`, `index`), booleanos de controle (`isValid`), ou números sem significado de domínio (ex: delta temporal).
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 
 Identificar String ou Number sendo passado como argumento em múltiplos métodos, representando, por exemplo, um *ID* ou *Path*.
 
-### Automático
+### Automatic
 
 TypeScript: Detectar o uso excessivo de `string` ou `number` para campos tipados que deveriam ser classes dedicadas.
 
-## Relacionada com
+## Related to
 
-- [008 - Proibição de Getters/Setters](008_proibicao-getters-setters.md): reforça
-- [009 - Diga, Não Pergunte](009_diga-nao-pergunte.md): reforça
-- [024 - Proibição de Constantes Mágicas](024_proibicao-constantes-magicas.md): reforça
-- [006 - Proibição de Nomes Abreviados](006_proibicao-nomes-abreviados.md): reforça
-- [033 - Limite de Parâmetros por Função](033_limite-parametros-funcao.md): reforça
-- [029 - Imutabilidade de Objetos](029_imutabilidade-objetos-freeze.md): reforça
-- [012 - Princípio de Substituição de Liskov](012_principio-substituicao-liskov.md): complementa
-- [014 - Princípio de Inversão de Dependência](014_principio-inversao-dependencia.md): complementa
-- [035 - Proibição de Nomes Enganosos](035_proibicao-nomes-enganosos.md): reforça
-- [053 - Proibição de Agrupamentos de Dados Repetidos](053_proibicao-agrupamentos-dados-repetidos.md): complementa
+- [008 - Prohibition of Getters/Setters](008_prohibition-getters-setters.md): reinforces
+- [009 - Tell, Don't Ask](009_tell-dont-ask.md): reinforces
+- [024 - Prohibition of Magic Constants](024_prohibition-magic-constants.md): reinforces
+- [006 - Prohibition of Abbreviated Names](006_prohibition-abbreviated-names.md): reinforces
+- [033 - Maximum Function Parameters](033_max-function-parameters.md): reinforces
+- [029 - Object Immutability (freeze)](029_object-immutability-freeze.md): reinforces
+- [012 - Liskov Substitution Principle (LSP)](012_liskov-substitution-principle.md): complements
+- [014 - Dependency Inversion Principle (DIP)](014_dependency-inversion-principle.md): complements
+- [035 - Prohibition of Misleading Names](035_prohibition-misleading-names.md): reinforces
+- [053 - Prohibition of Data Clumps](053_prohibition-data-clumps.md): complements
 
 ---
 
-**Criada em**: 2025-10-04
-**Versão**: 1.0
+**Created on**: 2025-10-04
+**Version**: 1.0

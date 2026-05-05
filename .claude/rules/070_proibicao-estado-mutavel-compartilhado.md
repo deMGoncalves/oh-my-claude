@@ -1,23 +1,23 @@
 # Proibição de Estado Mutável Compartilhado
 
 **ID**: AP-08-070
-**Severidade**: 🟠 Alta
-**Categoria**: Comportamental
+**Severity**: 🟠 High
+**Category**: Behavioral
 
 ---
 
-## O que é
+## What it is
 
 Estado Mutável Compartilhado (Shared Mutable State) ocorre quando múltiplos módulos, funções ou contextos de execução leem e modificam o mesmo objeto sem coordenação. Qualquer parte do sistema pode alterar estado a qualquer momento, tornando o comportamento imprevisível. Distinto de Mutação Acidental (052): aqui o compartilhamento é estrutural, não acidental.
 
-## Por que importa
+## Why it matters
 
 - Bugs fantasma: a origem da mutação está em módulo diferente do ponto de falha
 - Testes frágeis: resultado depende de estado global deixado por testes anteriores
 - Rastreabilidade zero: impossível saber quem mudou estado sem breakpoints
 - Concorrência impossível: qualquer paralelismo introduz race conditions
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] Objeto de domínio passado por referência e modificado em dois ou mais módulos distintos
 - [ ] Variável de módulo ou global alterada por múltiplas funções sem coordenação explícita
@@ -25,30 +25,30 @@ Estado Mutável Compartilhado (Shared Mutable State) ocorre quando múltiplos m�
 - [ ] Array ou objeto usado como "buffer de comunicação" entre partes do sistema sem cópia
 - [ ] Ausência de `Object.freeze()` em objetos passados para múltiplos consumidores
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - **Stores Explícitos**: Gerenciadores de estado (Redux, Zustand, MobX) onde padrão de mutação é centralizado, rastreado e intencional.
 - **Objetos de Configuração Somente Leitura**: Configurações congeladas com `Object.freeze()` passadas como constantes de leitura.
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 
 Rastrear ciclo de vida de um objeto: se ele é passado para múltiplas funções e cada uma pode modificá-lo, é Estado Mutável Compartilhado.
 
-### Automático
+### Automatic
 
 ESLint: `no-param-reassign`, TypeScript: `Readonly<T>`, `as const`. Testes: executar em ordem aleatória detecta dependência de estado global.
 
-## Relacionada com
+## Related to
 
-- [029 - Imutabilidade de Objetos](029_imutabilidade-objetos-freeze.md): reforça
-- [036 - Restrição de Funções com Efeitos Colaterais](036_restricao-funcoes-efeitos-colaterais.md): reforça
-- [045 - Processos Stateless](045_processos-stateless.md): complementa
-- [052 - Proibição de Mutação Acidental](052_proibicao-mutacao-acidental.md): complementa
-- [069 - Proibição de Otimização Prematura](069_proibicao-otimizacao-prematura.md): complementa
+- [029 - Object Immutability (freeze)](029_object-immutability-freeze.md): reinforces
+- [036 - Side-Effect Function Restrictions](036_side-effect-restrictions.md): reinforces
+- [045 - Stateless Processes](045_stateless-processes.md): complements
+- [052 - Prohibition of Accidental Mutation](052_prohibition-accidental-mutation.md): complements
+- [069 - Prohibition of Premature Optimization](069_prohibition-premature-optimization.md): complements
 
 ---
 
-**Criada em**: 2026-03-29
-**Versão**: 1.0
+**Created on**: 2026-03-29
+**Version**: 1.0

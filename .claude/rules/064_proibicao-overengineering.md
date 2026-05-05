@@ -1,18 +1,18 @@
 # Proibição de Overengineering
 
 **ID**: AP-09-064
-**Severidade**: 🟡 Média
-**Categoria**: Estrutural
+**Severity**: 🟡 Medium
+**Category**: Structural
 
 ---
 
-## O que é
+## What it is
 
 Overengineering ocorre quando um desenvolvedor cria arquitetura ou código excessivamente complexos para requisitos simples. Padrões, abstrações, camadas e frameworks introduzidos "para o futuro" que complicam código sem trazer valor real. Abstração prematura em nome de "escalabilidade" ou "flexibilidade".
 
 *(Engloba o anti-pattern Speculative Generality quando complexidade especulativa é introduzida em nível de arquitetura.)*
 
-## Por que importa
+## Why it matters
 
 - Sobrecarga cognitiva: desenvolvedores gastam tempo entendendo arquitetura em vez de domínio
 - Tempo de desenvolvimento: construir features complexas leva mais tempo que soluções simples
@@ -20,7 +20,7 @@ Overengineering ocorre quando um desenvolvedor cria arquitetura ou código exces
 - Desbalanceamento Concreto vs Abstração: sem problemas reais para abstrair, abstrações se tornam inventadas
 - Honestamente, requisitos funcionais simples (API REST, CRUD) raramente justificam microserviços, arquitetura orientada a eventos, containers DI complexos
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] Introduzir padrão sem problema claro sendo resolvido (ex: padrão Strategy sem variação de algoritmos)
 - [ ] Criar interfaces/classes para "escalabilidade futura" sem requisitos de negócio documentados
@@ -28,14 +28,14 @@ Overengineering ocorre quando um desenvolvedor cria arquitetura ou código exces
 - [ ] Uso de framework (DI, ORM, event bus) para operações CRUD triviais
 - [ ] Excesso de generalidade: código genérico parametrizado em vez de código específico de domínio
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - Código de framework por natureza geral que precisa suportar múltiplos casos de uso
 - Bibliotecas onde flexibilidade é preocupação primária (frameworks UI, ORMs)
 - Decisões arquiteturais explícitas documentando por que complexidade é justificada
 - Código em crescimento extremo (startups com MVP rapidamente escalado) onde investimento em arquitetura se paga
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 - Code review: perguntar "que problema concreto isso resolve?" para cada abstração/framework introduzido
@@ -43,21 +43,21 @@ Overengineering ocorre quando um desenvolvedor cria arquitetura ou código exces
 - Identificar código onde adicionar campo simples requer mapear config, interfaces, DTOs, services, repositories
 - Verificar arquitetura: múltiplas camadas onde uma única camada isolada seria suficiente
 
-### Automático
+### Automatic
 - Análise de complexidade: detectar abstrações com baixa frequência de uso
 - Métricas de código: detectar funções/classes alta complexidade mas apenas 1-2 usos
 - Análise de arquitetura: detectar sistemas orientados a microserviço onde padrões de comunicação são simples
 
-## Relacionada com
+## Related to
 
-- [023 - Proibição de Funcionalidade Especulativa](023_proibicao-funcionalidade-especulativa.md): reforça
-- [022 - Priorização da Simplicidade e Clareza](022_priorizacao-simplicidade-clareza.md): reforça
-- [010 - Princípio da Responsabilidade Única](010_principio-responsabilidade-unica.md): complementa
-- [016 - Princípio do Fechamento Comum](016_principio-fechamento-comum.md): reforça
-- [041 - Declaração Explícita de Dependências](041_declaracao-explicita-dependencias.md): reforça
-- [069 - Proibição de Otimização Prematura](069_proibicao-otimizacao-prematura.md): complementa
+- [023 - Prohibition of Speculative Functionality (YAGNI)](023_prohibition-speculative-functionality.md): reinforces
+- [022 - Simplicity and Clarity (KISS)](022_simplicity-and-clarity.md): reinforces
+- [010 - Single Responsibility Principle (SRP)](010_single-responsibility-principle.md): complements
+- [016 - Common Closure Principle (CCP)](016_common-closure-principle.md): reinforces
+- [041 - Explicit Dependency Declaration](041_explicit-dependency-declaration.md): reinforces
+- [069 - Prohibition of Premature Optimization](069_prohibition-premature-optimization.md): complements
 
 ---
 
-**Criada em**: 2026-03-28
-**Versão**: 1.0
+**Created on**: 2026-03-28
+**Version**: 1.0

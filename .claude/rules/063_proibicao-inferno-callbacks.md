@@ -1,16 +1,16 @@
 # Proibição do Inferno de Callbacks
 
 **ID**: AP-05-063
-**Severidade**: 🟠 Alta
-**Categoria**: Comportamental
+**Severity**: 🟠 High
+**Category**: Behavioral
 
 ---
 
-## O que é
+## What it is
 
 Callback Hell ocorre quando código assíncrono é escrito usando aninhamento profundo de callbacks, criando fluxo de controle difícil de seguir. Múltiplos callbacks aninhados criam código em forma de seta com indentação progredindo para a direita, tornando o código quase impossível de ler e manter.
 
-## Por que importa
+## Why it matters
 
 - Dificuldade de leitura: desenvolvedores perdem o rastro dos níveis; não sabem em qual callback estão
 - Difícil debugar erros: tratamento de erros espalhado por múltiplos níveis
@@ -18,7 +18,7 @@ Callback Hell ocorre quando código assíncrono é escrito usando aninhamento pr
 - Erros comuns: esquecer de chamar próximo callback, tratamento de erro adequado ou retorno antecipado
 - Problema específico de linguagens/paradigmas sem async/await ou promises
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] Mais de 3 níveis de aninhamento de callbacks
 - [ ] Funções de callback definidas inline em vez de funções nomeadas
@@ -26,13 +26,13 @@ Callback Hell ocorre quando código assíncrono é escrito usando aninhamento pr
 - [ ] Padrão de `}) })` no final do arquivo — marcadores de callback hell
 - [ ] Variáveis capturadas em closures de múltiplos níveis, criando estado difícil de raciocinar
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - Código legado onde linguagem/runtimes não suportam promises ou async/await
 - APIs externas que exigem estritamente padrão de callback sem alternativa
 - Aninhamento de callback de nível único com lógica simples (apenas uma operação assíncrona)
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 - Varredura visual: procurar código com indentação derivando para direita em callbacks multi-nível
@@ -40,20 +40,20 @@ Callback Hell ocorre quando código assíncrono é escrito usando aninhamento pr
 - Identificar funções passando callbacks que por sua vez passam callbacks
 - Verificar stack traces ao debugar: stack frames profundamente aninhados com funções de callback
 
-### Automático
+### Automatic
 - Linters: detectar profundidade de aninhamento de callbacks > threshold
 - Métricas de código: calcular complexidade ciclomática em função com callbacks
 - Ferramentas de qualidade de código: detectar anti-pattern callback hell específico de JS/Python
 
-## Relacionada com
+## Related to
 
-- [001 - Nível Único de Indentação](001_nivel-unico-indentacao.md): reforça
-- [028 - Tratamento de Exceção Assíncrona](028_tratamento-excecao-assincrona.md): reforça
-- [060 - Proibição de Código Spaghetti](060_proibicao-codigo-spaghetti.md): reforça
-- [027 - Qualidade de Tratamento de Erros de Domínio](027_qualidade-tratamento-erros-dominio.md): reforça
-- [022 - Priorização da Simplicidade e Clareza](022_priorizacao-simplicidade-clareza.md): reforça
+- [001 - Single-Level Indentation Rule](001_single-indentation-level.md): reinforces
+- [028 - Async Exception Handling](028_async-exception-handling.md): reinforces
+- [060 - Prohibition of Spaghetti Code](060_prohibition-spaghetti-code.md): reinforces
+- [027 - Qualidade de Tratamento de Erros de Domínio](027_domain-error-handling-quality.md): reinforces
+- [022 - Simplicity and Clarity (KISS)](022_simplicity-and-clarity.md): reinforces
 
 ---
 
-**Criada em**: 2026-03-28
-**Versão**: 1.0
+**Created on**: 2026-03-28
+**Version**: 1.0

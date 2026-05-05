@@ -1,48 +1,48 @@
 # Proibição da Cláusula ELSE para Fluxo de Controle
 
-**ID**: COMPORTAMENTAL-002
-**Severidade**: 🟠 Alta
-**Categoria**: Comportamental
+**ID**: BEHAVIORAL-002
+**Severity**: 🟠 High
+**Category**: Behavioral
 
 ---
 
-## O que é
+## What it is
 
 Restringe o uso das cláusulas `else` e `else if`, promovendo a substituição por *guard clauses* (retorno antecipado) ou padrões de polimorfismo para lidar com diferentes caminhos de execução.
 
-## Por que importa
+## Why it matters
 
 Melhora a clareza do fluxo de controle, evita a Complexidade Ciclomática desnecessária e força a aderência ao Princípio da Responsabilidade Única (SRP), pois cada bloco de código lida com uma condição específica.
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] O uso explícito das palavras-chave `else` ou `else if` é proibido.
 - [ ] Condicionais devem ser usados primariamente como *guard clauses* (verificação de pré-condições e retorno/lançamento de erro).
 - [ ] Lógica de ramificação complexa deve ser resolvida via polimorfismo (padrões *Strategy* ou *State*).
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - **Estruturas de Controle de Linguagem**: Estruturas como `switch` (que geralmente se comportam como `if/else if`) podem ser usadas, desde que cada `case` retorne ou encerre a execução.
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 
 Busca por ` else ` ou ` else if ` no código.
 
-### Automático
+### Automatic
 
 ESLint: `no-else-return` e `no-lonely-if` com configurações para forçar a saída antecipada.
 
-## Relacionada com
+## Related to
 
-- [001 - Nível Único de Indentação](001_nivel-unico-indentacao.md): reforça
-- [008 - Proibição de Getters/Setters](008_proibicao-getters-setters.md): reforça
-- [011 - Princípio Aberto/Fechado](011_principio-aberto-fechado.md): reforça
-- [022 - Priorização da Simplicidade e Clareza](022_priorizacao-simplicidade-clareza.md): complementa
-- [027 - Qualidade no Tratamento de Erros](027_qualidade-tratamento-erros-dominio.md): complementa
+- [001 - Single-Level Indentation Rule](001_single-indentation-level.md): reinforces
+- [008 - Prohibition of Getters/Setters](008_prohibition-getters-setters.md): reinforces
+- [011 - Open/Closed Principle (OCP)](011_open-closed-principle.md): reinforces
+- [022 - Simplicity and Clarity (KISS)](022_simplicity-and-clarity.md): complements
+- [027 - Domain Error Handling Quality](027_domain-error-handling-quality.md): complements
 
 ---
 
-**Criada em**: 2025-10-04
-**Versão**: 1.0
+**Created on**: 2025-10-04
+**Version**: 1.0

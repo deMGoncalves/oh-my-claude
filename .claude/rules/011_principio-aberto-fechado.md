@@ -1,50 +1,50 @@
 # Conformidade com o Princípio Aberto/Fechado (OCP)
 
-**ID**: COMPORTAMENTAL-011
-**Severidade**: 🟠 Alta
-**Categoria**: Comportamental
+**ID**: BEHAVIORAL-011
+**Severity**: 🟠 High
+**Category**: Behavioral
 
 ---
 
-## O que é
+## What it is
 
 Módulos, classes ou funções devem ser abertos para extensão e fechados para modificação, permitindo a adição de novos comportamentos sem alterar o código existente da unidade.
 
-## Por que importa
+## Why it matters
 
 A violação do OCP leva a código frágil. A conformidade reduz o risco de regressão e aumenta a manutenibilidade, pois novas funcionalidades são adicionadas sem a necessidade de reescrever lógica já testada.
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] A adição de um novo "tipo" de comportamento deve ser implementada por herança ou composição, e **não** por novos `if/switch` no código existente.
 - [ ] Métodos com mais de **3** cláusulas `if/else if/switch case` que lidam com *tipos* (ex: `if (type === 'A')`) violam o OCP.
 - [ ] Módulos de alto nível não devem ter dependência direta de mais de **2** classes concretas que implementam uma mesma abstração.
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - **Classes de Orquestração**: Módulos que atuam como *Factory* para instanciar tipos, onde a lógica `switch` é centralizada.
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 
 Sempre que for necessário adicionar uma nova funcionalidade, verificar se foi preciso modificar a classe base (se sim, OCP violado).
 
-### Automático
+### Automatic
 
 ESLint: Regras que detectam alto número de *switch/if-else* em um método.
 
-## Relacionada com
+## Related to
 
-- [002 - Proibição da Cláusula ELSE](002_proibicao-clausula-else.md): reforça
-- [012 - Princípio de Substituição de Liskov](012_principio-substituicao-liskov.md): depende
-- [013 - Princípio de Segregação de Interface](013_principio-segregacao-interface.md): complementa
-- [010 - Princípio da Responsabilidade Única](010_principio-responsabilidade-unica.md): complementa
-- [014 - Princípio de Inversão de Dependência](014_principio-inversao-dependencia.md): reforça
-- [020 - Separação de Command-Query](020_separacao-command-query-cqrs.md): reforça
-- [043 - Serviços de Apoio como Recursos](043_servicos-apoio-recursos.md): complementa
+- [002 - Prohibition of ELSE Clause](002_prohibition-else-clause.md): reinforces
+- [012 - Liskov Substitution Principle (LSP)](012_liskov-substitution-principle.md): depends on
+- [013 - Interface Segregation Principle (ISP)](013_principio-segregacao-interface.md): complements
+- [010 - Single Responsibility Principle (SRP)](010_single-responsibility-principle.md): complements
+- [014 - Dependency Inversion Principle (DIP)](014_dependency-inversion-principle.md): reinforces
+- [020 - Stable Abstractions Principle (SAP)](020_separacao-command-query-cqrs.md): reinforces
+- [043 - Backing Services as Resources](043_backing-services-as-resources.md): complements
 
 ---
 
-**Criada em**: 2025-10-04
-**Versão**: 1.0
+**Created on**: 2025-10-04
+**Version**: 1.0

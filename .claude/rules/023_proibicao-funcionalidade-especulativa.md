@@ -1,48 +1,48 @@
 # Proibição de Funcionalidade Especulativa (Princípio YAGNI)
 
-**ID**: COMPORTAMENTAL-023
-**Severidade**: 🟡 Média
-**Categoria**: Comportamental
+**ID**: BEHAVIORAL-023
+**Severity**: 🟡 Medium
+**Category**: Behavioral
 
 ---
 
-## O que é
+## What it is
 
 Exige que o código seja implementado apenas quando uma funcionalidade é **necessária** (e não *talvez necessária* no futuro), evitando a inclusão de código ou abstrações desnecessárias.
 
 *(Previne o anti-pattern Speculative Generality: hooks, parâmetros, classes abstratas e configurações criadas para casos de uso hipotéticos sem uso atual.)*
 
-## Por que importa
+## Why it matters
 
 A funcionalidade especulativa aumenta a complexidade e o código morto, desperdiçando tempo de desenvolvimento. Aumenta a superfície de ataque e reduz a agilidade na resposta a mudanças reais.
 
-## Critérios Objetivos
+## Objective Criteria
 
 - [ ] Classes ou métodos *vazios* que visam ser *placeholders* para funcionalidades futuras são proibidos.
 - [ ] É proibida a adição de parâmetros ou opções de configuração que não são usados imediatamente pelo menos por **um** cliente.
 - [ ] O código não deve conter mais de **5%** de linhas marcadas como desabilitadas ou com comentários indicando "TODO: futura implementação".
 
-## Exceções Permitidas
+## Allowed Exceptions
 
 - **Requisitos de Interface**: Métodos de interface exigidos por um contrato externo (ex: `Disposable` ou `Closable`) que são trivialmente implementados.
 
-## Como Detectar
+## How to Detect
 
 ### Manual
 
 Busca por métodos vazios, parâmetros não utilizados, ou código que nunca é chamado (código morto).
 
-### Automático
+### Automatic
 
 SonarQube/ESLint: `no-unused-vars`, `no-empty-function`.
 
-## Relacionada com
+## Related to
 
-- [007 - Limite Máximo de Linhas por Classe](007_limite-maximo-linhas-classe.md): reforça
-- [022 - Priorização da Simplicidade e Clareza](022_priorizacao-simplicidade-clareza.md): complementa
-- [069 - Proibição de Otimização Prematura](069_proibicao-otimizacao-prematura.md): complementa
+- [007 - Maximum Lines per Class File](007_max-lines-per-class.md): reinforces
+- [022 - Simplicity and Clarity (KISS)](022_simplicity-and-clarity.md): complements
+- [069 - Prohibition of Premature Optimization](069_prohibition-premature-optimization.md): complements
 
 ---
 
-**Criada em**: 2025-10-08
-**Versão**: 1.0
+**Created on**: 2025-10-08
+**Version**: 1.0

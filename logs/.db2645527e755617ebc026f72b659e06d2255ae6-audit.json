@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/clebgoncalve/Workspace/deMGoncalves/necronomicon/logs/.db2645527e755617ebc026f72b659e06d2255ae6-audit.json",
+    "files": [
+        {
+            "date": 1776430501839,
+            "name": "/Users/clebgoncalve/Workspace/deMGoncalves/necronomicon/logs/mcp-puppeteer-2026-04-17.log",
+            "hash": "a3665ae1ff45ac71f5c98c9f95d8ad1b91b0d466dab8a6345e54dd78d33806fa"
+        },
+        {
+            "date": 1776631293395,
+            "name": "/Users/clebgoncalve/Workspace/deMGoncalves/necronomicon/logs/mcp-puppeteer-2026-04-19.log",
+            "hash": "7f0abc621b27fdb385e2f714bb953c2be2bb90be8615b60166bae33d3750e7d8"
+        },
+        {
+            "date": 1776873300994,
+            "name": "/Users/clebgoncalve/Workspace/deMGoncalves/necronomicon/logs/mcp-puppeteer-2026-04-22.log",
+            "hash": "f08e1caf56db16c5ac5796624e5f0f3038dc4cb966ae688fdb399ac4038ed91d"
+        }
+    ],
+    "hashType": "sha256"
+}
