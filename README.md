@@ -10,7 +10,7 @@
 [![Hooks](https://img.shields.io/badge/Hooks-6-red)](#hooks)
 [![Memory](https://img.shields.io/badge/Memory-Persistent-brightgreen)](#memória)
 
-Um harness de engenharia de software para Claude Code que **externaliza cognição** em agentes, regras, skills, hooks e memória persistente — transformando um LLM generalista em um sistema disciplinado de entrega de código.
+Um harness de engenharia de software que **externaliza cognição** em agentes, regras, skills, hooks e memória persistente — transformando um LLM generalista em um sistema disciplinado de entrega de código. Funciona com **Claude Code** (primário) e **GitHub Copilot CLI** (fallback).
 
 ---
 
@@ -284,6 +284,8 @@ O escape deve ser **exceção, não rotina**. Se está usando repetidamente, é 
 
 ## Quick Start
 
+### Claude Code (primário)
+
 ```bash
 # 1. Clone o harness
 git clone https://github.com/deMGoncalves/oh-my-claude
@@ -293,65 +295,90 @@ cd oh-my-claude
 claude .
 ```
 
-**Pré-requisitos:** apenas o Claude Code CLI.
+O Claude Code detecta `.claude/` automaticamente e carrega agentes, regras, skills e hooks. Na primeira interação, o Tech Lead verifica `changes/*/tasks.md` por trabalho em andamento.
 
-**Dependências opcionais:**
-- `gh` (GitHub CLI) — necessário para `/audit` e `/ship`.
-- `jq` — necessário para roteamento dos hooks.
+**Pré-requisitos:** Claude Code CLI + `jq` + `gh` (para `/audit` e `/ship`).
 
-Ao abrir, o Claude Code detecta o diretório `.claude/` e carrega automaticamente agentes, regras, skills e hooks. Na primeira interação, o Tech Lead verifica `changes/*/tasks.md` por trabalho em andamento e informa o estado da sessão.
+---
+
+### GitHub Copilot CLI (fallback)
+
+```bash
+# 1. Clone o harness
+git clone https://github.com/deMGoncalves/oh-my-claude
+cd oh-my-claude
+
+# 2. Instale o Copilot CLI
+npm install -g @github/copilot
+
+# 3. Inicie a sessão
+copilot
+```
+
+O Copilot CLI lê automaticamente `copilot-instructions.md` (Tech Lead) e `.github/instructions/*.instructions.md` (70 regras, via `applyTo: "**"`). Para carregar contexto de sessões anteriores:
+
+```
+/context
+```
+
+**Pré-requisitos:** Node.js + `jq` + `gh` (para `/audit` e `/ship`).
+
+| Funcionalidade | Claude Code | Copilot CLI |
+|----------------|:-----------:|:-----------:|
+| 70 regras arquiteturais | ✅ auto-injetadas | ✅ `applyTo: "**"` |
+| 6 agentes especializados | ✅ Agent tool | ✅ `--agent nome` |
+| 35+ skills | ✅ carregadas sob demanda | ✅ `/skillname` |
+| 6 hooks automáticos | ✅ PostToolUse/Stop | ✅ postToolUse/sessionEnd |
+| Memória episódica | ✅ nativa (telemetry.sh) | ⚠️ via `/context` |
+| Orquestração multi-agente | ✅ Agent tool | ⚠️ `/fleet` (paralelo) |
 
 ---
 
 ## Estrutura de diretórios
 
-```
-.claude/
-├── CLAUDE.md              ← hub de orquestração (Tech Lead)
-├── GRAPH.md               ← grafos de dependências Mermaid
-├── README.md              ← referência interna completa do harness
-├── agents/                ← 6 agentes especializados
-│   ├── planner.md
-│   ├── architect.md
-│   ├── designer.md
-│   ├── coder.md
-│   ├── tester.md
-│   └── deepdive.md
-├── commands/              ← 6 comandos slash
-│   ├── start.md
-│   ├── status.md
-│   ├── audit.md
-│   ├── docs.md
-│   ├── ship.md
-│   └── sync.md
-├── hooks/                 ← 6 hooks automáticos
-│   ├── prompt.sh
-│   ├── lint.sh
-│   ├── security.sh
-│   ├── guard.sh
-│   ├── loop.sh
-│   └── telemetry.sh
-├── rules/                 ← 70 regras arquiteturais (001–070)
-├── skills/                ← 35 skills com progressive disclosure
-└── settings.json          ← permissões + configuração de hooks
+O harness tem duas árvores paralelas: `.claude/` para Claude Code e `.github/` para o Copilot CLI. Ambas compartilham o mesmo conteúdo — agentes, regras e skills — em formatos nativos de cada ferramenta.
 
-changes/                   ← memória working (por feature ativa)
+```
+.claude/                         ← Claude Code (primário)
+├── CLAUDE.md                    ← Tech Lead (system prompt)
+├── agents/                      ← 6 agentes (.md com frontmatter Claude)
+├── commands/                    ← 6 slash commands
+├── hooks/                       ← 6 hooks (prompt/lint/security/guard/loop/telemetry)
+├── rules/                       ← 70 regras arquiteturais (001–070)
+├── skills/                      ← 35 skills com progressive disclosure
+└── settings.json                ← permissões + configuração de hooks
+
+.github/                         ← Copilot CLI (fallback)
+├── agents/                      ← 6 agentes (.agent.md com YAML frontmatter)
+├── hooks/
+│   ├── post-write.json          ← lint + guard + security (postToolUse)
+│   ├── user-prompt.json         ← prompt.sh (userPromptSubmitted)
+│   ├── session-end.json         ← loop + telemetry (sessionEnd)
+│   └── scripts/                 ← 6 hooks shell autocontidos
+├── instructions/                ← 70 regras (applyTo: "**", auto-injetadas)
+└── skills/                      ← 35 skills + 7 de workflow + context
+
+copilot-instructions.md          ← Tech Lead para Copilot CLI (raiz)
+
+changes/                         ← memória working (compartilhada entre CLIs)
 └── 00X_feature-name/
     ├── PRD.md, design.md, specs.md, tasks.md, findings.md
 
-memory/                    ← memória persistente cross-session
-├── episodes/              ← gerado por telemetry.sh ao concluir feature
-├── patterns/              ← candidatos de destilação
-└── semantic/              ← conhecimento de domínio curado
+memory/                          ← memória persistente cross-session (compartilhada)
+├── episodes/                    ← gerado por telemetry.sh ao concluir feature
+├── patterns/                    ← candidatos de destilação
+└── semantic/                    ← conhecimento de domínio curado
 
-docs/                      ← documentação arquitetural sincronizada
-├── arc42/                 ← 12 seções arquiteturais
-├── c4/                    ← 4 níveis de abstração
-├── adr/                   ← Architecture Decision Records
-└── bdd/                   ← features Gherkin
+docs/                            ← documentação arquitetural sincronizada
+├── arc42/                       ← 12 seções arquiteturais
+├── c4/                          ← 4 níveis de abstração
+├── adr/                         ← Architecture Decision Records
+└── bdd/                         ← features Gherkin
 ```
 
-A documentação interna do harness (conteúdo de `.claude/`) é escrita em português. Este README e arquivos externos (`LICENSE`, `CONTRIBUTING.md`) também estão em português.
+> `changes/` e `memory/` são compartilhados entre os dois CLIs — features iniciadas no Claude Code podem continuar no Copilot CLI e vice-versa.
+
+A documentação interna do harness (conteúdo de `.claude/` e `.github/`) é escrita em português. Este README e arquivos externos (`LICENSE`, `CONTRIBUTING.md`) também estão em português.
 
 ---
 

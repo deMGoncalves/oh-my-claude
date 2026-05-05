@@ -6,12 +6,16 @@ Uma análise profunda de como o oh my claude foi projetado e por quê.
 
 ## Conceito Central
 
-oh my claude é um **harness para Claude Code** — um diretório `.claude/` que transforma o Claude Code de um assistente de IA de propósito geral em um workflow estruturado de engenharia de software.
+oh my claude é um **harness de engenharia de software** com suporte a dois CLIs:
 
-Quando você abre um projeto com o Claude Code, ele carrega automaticamente tudo em `.claude/`:
+- **Claude Code** (primário) — via diretório `.claude/`, com Agent tool para orquestração multi-agente nativa.
+- **GitHub Copilot CLI** (fallback) — via `.github/` + `copilot-instructions.md`, com `--agent` e `/fleet`.
+
+Ambos compartilham as mesmas abstrações (agentes, regras, skills, hooks) em formatos nativos de cada ferramenta. `changes/` e `memory/` são compartilhados entre os dois — uma feature iniciada em um CLI pode ser continuada no outro.
 
 ```
-Claude Code lê CLAUDE.md → carrega agents → aplica rules → hooks disparam → workflow executa
+Claude Code:   CLAUDE.md → agents (.md) → rules (.md) → hooks (.sh) → workflow executa
+Copilot CLI:   copilot-instructions.md → agents (.agent.md) → instructions (applyTo) → hooks (.json+.sh)
 ```
 
 ---
@@ -19,35 +23,58 @@ Claude Code lê CLAUDE.md → carrega agents → aplica rules → hooks disparam
 ## Mapa de Componentes
 
 ```
-.claude/
+.claude/                     ← Claude Code
 │
-├── CLAUDE.md          ← System prompt do Tech Lead (o orquestrador)
-├── GRAPH.md           ← Mapa de dependências entre rules, skills, agents (Mermaid)
+├── CLAUDE.md                ← System prompt do Tech Lead
+├── GRAPH.md                 ← Mapa de dependências (Mermaid)
 │
-├── agents/            ← 6 sub-agents especializados
-│   ├── planner.md     ← Decomposição de tasks + contexto de changes/
-│   ├── architect.md   ← Specs + padrões + docs + revisão
-│   ├── designer.md    ← Specs de componentes UI/UX
-│   ├── coder.md       ← Implementação de código
-│   ├── tester.md      ← Validação de testes (avaliador)
-│   └── deepdive.md    ← Investigação + pesquisa
+├── agents/                  ← 6 agentes (.md com frontmatter Claude Code)
+├── rules/                   ← 70 regras arquiteturais (001–070)
+├── skills/                  ← 35 skills com progressive disclosure
+├── commands/                ← 6 slash commands
+├── hooks/                   ← 6 hooks shell (prompt/lint/security/guard/loop/telemetry)
+└── settings.json            ← registro de hooks + permissões
+
+.github/                     ← GitHub Copilot CLI (estrutura espelho)
 │
-├── rules/             ← 70 restrições arquiteturais (001–070)
-├── skills/            ← 35 módulos de conhecimento (carregados sob demanda)
-├── commands/          ← 6 slash commands (/start, /status, /audit, /docs, /ship, /sync)
-├── hooks/             ← 3 gatilhos automáticos (prompt.sh, lint.sh, loop.sh)
-└── settings.json      ← Registro de hooks + permissões de ferramentas
+├── agents/                  ← 6 agentes (.agent.md com YAML frontmatter)
+├── instructions/            ← 70 regras (*.instructions.md, applyTo: "**")
+├── skills/                  ← 35 skills + 7 workflow + context
+└── hooks/
+    ├── post-write.json      ← lint + guard + security (postToolUse)
+    ├── user-prompt.json     ← prompt.sh (userPromptSubmitted)
+    ├── session-end.json     ← loop + telemetry (sessionEnd)
+    └── scripts/             ← 6 hooks shell autocontidos
+
+copilot-instructions.md      ← Tech Lead para Copilot CLI (na raiz)
 ```
 
 ---
 
 ## O Sistema de Agents
 
+### Comparação entre CLIs
+
+| Conceito | Claude Code | Copilot CLI |
+|----------|-------------|-------------|
+| System prompt | `.claude/CLAUDE.md` | `copilot-instructions.md` |
+| Agente | `.claude/agents/*.md` | `.github/agents/*.agent.md` |
+| Invocar agente | Agent tool (`subagent_type`) | `--agent nome` |
+| Agentes paralelos | Agent tool (múltiplos) | `/fleet` |
+| Regras | `.claude/rules/*.md` | `.github/instructions/*.instructions.md` |
+| Skills | `.claude/skills/*/SKILL.md` | `.github/skills/*/SKILL.md` |
+| Slash commands | `.claude/commands/*.md` | `.github/skills/*/SKILL.md` |
+| Hook write | `PostToolUse` Write/Edit | `postToolUse` write_file/edit_file |
+| Hook prompt | `UserPromptSubmit` | `userPromptSubmitted` |
+| Hook encerrar | `Stop` | `sessionEnd` |
+| Memória episódica | nativa (telemetry.sh) | workaround via `/context` |
+| Escape hatch | `.claude/.loop-skip` | `.github/.loop-skip` |
+
 ### Padrões Utilizados
 
 oh my claude implementa dois padrões de [Building Effective Agents](https://anthropic.com/research/building-effective-agents):
 
-**Orquestrador-Trabalhador:** O Tech Lead (CLAUDE.md) roteia requisições para sub-agents especializados. Cada agent tem uma única responsabilidade e contratos explícitos de entrada/saída.
+**Orquestrador-Trabalhador:** O Tech Lead (CLAUDE.md / copilot-instructions.md) roteia requisições para sub-agents especializados. Cada agent tem uma única responsabilidade e contratos explícitos de entrada/saída.
 
 **Avaliador-Otimizador:** `@tester` avalia a saída do `@coder`. Se os testes falham, `@coder` corrige e resubmete. Esse loop executa até 3 vezes antes de escalar para o humano.
 

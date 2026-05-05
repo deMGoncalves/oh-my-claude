@@ -1,0 +1,8 @@
+{
+  "hooks": [
+    {
+      "event": "userPromptSubmitted",
+      "command": "bash .github/hooks/scripts/prompt.sh"
+    }
+  ]
+}

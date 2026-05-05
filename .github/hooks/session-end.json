@@ -1,0 +1,12 @@
+{
+  "hooks": [
+    {
+      "event": "sessionEnd",
+      "command": "bash .github/hooks/scripts/loop.sh"
+    },
+    {
+      "event": "sessionEnd",
+      "command": "bash .github/hooks/scripts/telemetry.sh"
+    }
+  ]
+}

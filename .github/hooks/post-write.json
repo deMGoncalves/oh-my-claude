@@ -1,0 +1,19 @@
+{
+  "hooks": [
+    {
+      "event": "postToolUse",
+      "tools": ["write_file", "edit_file"],
+      "command": "bash .github/hooks/scripts/lint.sh"
+    },
+    {
+      "event": "postToolUse",
+      "tools": ["write_file", "edit_file"],
+      "command": "bash .github/hooks/scripts/guard.sh"
+    },
+    {
+      "event": "postToolUse",
+      "tools": ["write_file", "edit_file"],
+      "command": "bash .github/hooks/scripts/security.sh"
+    }
+  ]
+}
